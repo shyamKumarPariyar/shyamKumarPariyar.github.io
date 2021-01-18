@@ -140,8 +140,8 @@
         var markerScene = new THREE.Scene()
         markerGroup.add(markerScene)
 
-        // var mesh = new THREE.AxesHelper()
-        // markerScene.add(mesh)
+        var mesh = new THREE.AxesHelper()
+        markerScene.add(mesh)
 
         // add a torus knot
         // var geometry	= new THREE.CubeGeometry(1,1,1);
@@ -168,8 +168,8 @@
             map: texture
         });
 
-        const mesh = new THREE.Mesh(geometry, material);
-        markerScene.add(mesh);
+        // const mesh = new THREE.Mesh(geometry, material);
+        // markerScene.add(mesh);
 
 
         // video = document.getElementById('video');
