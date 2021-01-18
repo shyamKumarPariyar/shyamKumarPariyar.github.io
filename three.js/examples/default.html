@@ -32,8 +32,9 @@
 
         // init renderer
         var renderer = new THREE.WebGLRenderer({
-            // antialias	: true,
-            alpha: true
+            antialias: true,
+            alpha: true,
+            precision: 'mediump',
         });
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
             // renderer.setPixelRatio( 2 );
