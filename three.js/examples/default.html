@@ -62,7 +62,9 @@
         //////////////////////////////////////////////////////////////////////////////////
 
         // Create a camera
-        var camera = new THREE.Camera();
+        // var camera = new THREE.Camera();
+        // scene.add(camera);
+        const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
         scene.add(camera);
 
         ////////////////////////////////////////////////////////////////////////////////
