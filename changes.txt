@@ -1,0 +1,11 @@
+<a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="antialias: true;
+                   colorManagement: true;
+                   sortObjects: true;
+                   physicallyCorrectLights: true;
+                   maxCanvasWidth: 1920;
+                   maxCanvasHeight: 1920;"
+    embedded
+    arjs="trackingMethod:sourceType: webcam; debugUIEnabled: false;"
+  >
