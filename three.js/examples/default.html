@@ -118,12 +118,12 @@
 
 
         // // build a smoothedControls
-        // var smoothedGroup = new THREE.Group()
-        // scene.add(smoothedGroup)
-        // var smoothedControls = new THREEx.ArSmoothedControls(smoothedGroup)
-        // onRenderFcts.push(function(delta){
-        // 	smoothedControls.update(markerGroup)
-        // })
+        var smoothedGroup = new THREE.Group()
+        scene.add(smoothedGroup)
+        var smoothedControls = new THREEx.ArSmoothedControls(smoothedGroup)
+        onRenderFcts.push(function(delta) {
+            smoothedControls.update(markerGroup)
+        })
 
         //////////////////////////////////////////////////////////////////////////////////
         //		add an object in the scene
