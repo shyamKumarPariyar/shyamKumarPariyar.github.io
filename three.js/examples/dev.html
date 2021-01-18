@@ -183,8 +183,10 @@
             side: THREE.SingleSide
         })
         var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.y = geometry.parameters.height / 2
-            // markerRoot.add( mesh );
+        mesh.position.y = geometry.parameters.height
+
+        mesh.rotation.x = -Math.PI / 2;
+        // markerRoot.add( mesh );
         arWorldRoot.add(mesh)
 
         // var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
