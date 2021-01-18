@@ -177,13 +177,25 @@
 
         // add a torus knot
         var geometry = new THREE.PlaneGeometry(1, 1, 1);
-        var material = new THREE.MeshNormalMaterial({
-            transparent: false,
-            opacity: 0.5,
+        // var material = new THREE.MeshNormalMaterial({
+        //     transparent: false,
+        //     opacity: 0.5,
+        //     side: THREE.SingleSide
+        // })
+
+        const loader = new THREE.TextureLoader();
+
+        const material = new THREE.MeshBasicMaterial({
+            map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
             side: THREE.SingleSide
-        })
+        });
+
+
+
+
         var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.y = -geometry.parameters.height
+        // mesh.position.y = geometry.parameters.height
+        mesh.position.y = 0
 
         mesh.rotation.x = -Math.PI / 2;
         // markerRoot.add( mesh );
