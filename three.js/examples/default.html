@@ -5,6 +5,8 @@
 <script src='vendor/three.js/examples/js/libs/stats.min.js'></script>
 <!-- ar.js -->
 <script src="../build/ar.js"></script>
+<!-- ar.js -->
+<script src='../build/ar-nft.js'></script>
 <script>
     THREEx.ArToolkitContext.baseURL = '../'
 </script>
@@ -84,6 +86,11 @@
             onResize()
         })
 
+        // listener for end loading of NFT marker
+        window.addEventListener('arjs-nft-loaded', function(ev) {
+            console.log(ev);
+        })
+
         function onResize() {
             arToolkitSource.onResizeElement()
             arToolkitSource.copyElementSizeTo(renderer.domElement)
@@ -118,9 +125,17 @@
 
         var markerGroup = new THREE.Group
         scene.add(markerGroup)
-        var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerGroup, {
-            type: 'pattern',
-            patternUrl: THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
+
+
+        // var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerGroup, {
+        //     type: 'pattern',
+        //     patternUrl: THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
+        // })
+
+        var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
+            type: 'nft',
+            descriptorsUrl: 'data/dataNFT/pinball',
+            changeMatrixMode: 'cameraTransformMatrix'
         })
 
 
@@ -160,13 +175,13 @@
         // mesh.position.y	= 0.5
         // markerScene.add( mesh );
 
-        const video = document.getElementById('video');
-        video.play();
+        // const video = document.getElementById('video');
+        // video.play();
 
-        const texture = new THREE.VideoTexture(video);
-        const material = new THREE.MeshBasicMaterial({
-            map: texture
-        });
+        // const texture = new THREE.VideoTexture(video);
+        // const material = new THREE.MeshBasicMaterial({
+        //     map: texture
+        // });
 
         // const mesh = new THREE.Mesh(geometry, material);
         // markerScene.add(mesh);
@@ -184,9 +199,9 @@
 
         const loader = new THREE.TextureLoader();
 
-        // const material = new THREE.MeshBasicMaterial({
-        //     map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
-        // });
+        const material = new THREE.MeshBasicMaterial({
+            map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+        });
 
 
 
