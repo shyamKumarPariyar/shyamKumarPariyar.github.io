@@ -223,6 +223,7 @@
         var movieGeometry = new THREE.PlaneGeometry(1, 1, 50, 50);
         var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
         // movieScreen.position.set(0,50,0);
+        movieScreen.rotation.x = -Math.PI / 2;
         arWorldRoot.add(movieScreen);
 
 
