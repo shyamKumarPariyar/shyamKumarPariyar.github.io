@@ -168,8 +168,8 @@
             map: texture
         });
 
-        // const mesh = new THREE.Mesh(geometry, material);
-        // markerScene.add(mesh);
+        const mesh = new THREE.Mesh(geometry, material);
+        markerScene.add(mesh);
 
 
         // video = document.getElementById('video');
@@ -182,11 +182,11 @@
 
         // texture = new THREE.VideoTexture(video);
 
-        // const loader = new THREE.TextureLoader();
+        const loader = new THREE.TextureLoader();
 
-        // const material = new THREE.MeshBasicMaterial({
-        //     map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
-        // });
+        const material = new THREE.MeshBasicMaterial({
+            map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+        });
 
 
 
