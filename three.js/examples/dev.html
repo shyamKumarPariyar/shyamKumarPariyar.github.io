@@ -176,11 +176,11 @@
         arWorldRoot.add(mesh)
 
         // add a torus knot
-        var geometry = new THREE.PlaneGeometry(5, 20, 32);
+        var geometry = new THREE.PlaneGeometry(1, 1, 1);
         var material = new THREE.MeshNormalMaterial({
-            transparent: true,
+            transparent: false,
             opacity: 0.5,
-            side: THREE.DoubleSide
+            side: THREE.SingleSide
         })
         var mesh = new THREE.Mesh(geometry, material);
         mesh.position.y = geometry.parameters.height / 2
