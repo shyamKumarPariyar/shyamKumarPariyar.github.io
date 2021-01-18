@@ -4,9 +4,7 @@
 <script src='vendor/three.js/build/three.js'></script>
 <script src='vendor/three.js/examples/js/libs/stats.min.js'></script>
 <!-- ar.js -->
-<!-- <script src="../build/ar.js"></script> -->
-
-<script src='../build/ar-nft.js'></script>
+<script src="../build/ar.js"></script>
 <script>
     THREEx.ArToolkitContext.baseURL = '../'
 </script>
@@ -113,14 +111,9 @@
 
         var markerGroup = new THREE.Group
         scene.add(markerGroup)
-            // var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerGroup, {
-            //     type: 'pattern',
-            //     patternUrl: THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
-            // })
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerGroup, {
-            type: 'nft',
-            descriptorsUrl: 'data/dataNFT/pinball',
-            changeMatrixMode: 'cameraTransformMatrix'
+            type: 'pattern',
+            patternUrl: THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
         })
 
 
@@ -179,7 +172,7 @@
 
 
 
-        const geometry = new THREE.PlaneGeometry(4, 2, 2);
+        const geometry = new THREE.PlaneGeometry(5, 2, 2);
         // const material = new THREE.MeshBasicMaterial({
         //     color: 0xffff00,
         //     side: THREE.DoubleSide
