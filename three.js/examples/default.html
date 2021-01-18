@@ -62,13 +62,10 @@
         //////////////////////////////////////////////////////////////////////////////////
 
         // Create a camera
-        // var camera = new THREE.Camera();
-        // scene.add(camera);
-        // var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-        // scene.add(camera);
-        var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0, 100000);
-        camera.position.set(800, 50, 900);
+        var camera = new THREE.Camera();
         scene.add(camera);
+
+
         ////////////////////////////////////////////////////////////////////////////////
         //          handle arToolkitSource
         ////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +205,7 @@
 
 
 
-        const geometry = new THREE.PlaneGeometry(900, 600, 600);
+        const geometry = new THREE.PlaneGeometry(300, 200, 200);
         // const material = new THREE.MeshBasicMaterial({
         //     color: 0xffff00,
         //     side: THREE.DoubleSide
