@@ -22,9 +22,9 @@
         <a href='https://github.com/AR-js-org/AR.js/' target='_blank'>AR.js</a> - developement playground
         <br/> Contact me any time at <a href='https://twitter.com/nicolocarp' target='_blank'>@nicolocarp</a>
     </div>
-    <!-- <video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
+    <video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
 		<source src="fulbutte.mp4">
-	</video> -->
+	</video>
     <script>
         //////////////////////////////////////////////////////////////////////////////////
         //		Init
@@ -178,81 +178,32 @@
         // markerRoot.add(mesh)
         // arWorldRoot.add(mesh)
 
-
-
-        ///////////
-        // VIDEO //
-        ///////////
-
-        // create the video element
-        video = document.createElement('video');
-        // video.id = 'video';
-        video.type = ' video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
-        video.src = "fulbutte.mp4";
-        video.load(); // must call after setting/changing source
-        video.play();
-
-        // alternative method -- 
-        // create DIV in HTML:
-        // <video id="myVideo" autoplay style="display:none">
-        //		<source src="videos/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'>
-        // </video>
-        // and set JS variable:
-        // video = document.getElementById( 'myVideo' );
-
-        videoImage = document.createElement('canvas');
-        videoImage.width = 480;
-        videoImage.height = 204;
-
-        videoImageContext = videoImage.getContext('2d');
-        // background color if no video present
-        videoImageContext.fillStyle = '#000000';
-        videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
-
-        videoTexture = new THREE.Texture(videoImage);
-        videoTexture.minFilter = THREE.LinearFilter;
-        videoTexture.magFilter = THREE.LinearFilter;
-
-        var movieMaterial = new THREE.MeshBasicMaterial({
-            map: videoTexture,
-            overdraw: true,
-            side: THREE.DoubleSide
-        });
-        // the geometry on which the movie will be displayed;
-        // 		movie image will be scaled to fit these dimensions.
-        var movieGeometry = new THREE.PlaneGeometry(1, 1, 50, 50);
-        var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
-        // movieScreen.position.set(0,50,0);
-        movieScreen.rotation.x = -Math.PI / 2;
-        arWorldRoot.add(movieScreen);
-
-
-
-        // var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
-        // // var material = new THREE.MeshNormalMaterial({
-        // //     transparent: false,
-        // //     opacity: 0.5,
-        // //     side: THREE.SingleSide
-        // // })
-        // const video = document.getElementById('video');
-        // const texture = new THREE.VideoTexture(video);
-
-        // const loader = new THREE.TextureLoader();
-
-        // const material = new THREE.MeshBasicMaterial({
-        //     // map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
-        //     map: texture,
+        // add a torus knot
+        var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
+        // var material = new THREE.MeshNormalMaterial({
+        //     transparent: false,
+        //     opacity: 0.5,
         //     side: THREE.SingleSide
-        // });
+        // })
 
 
-        // var mesh = new THREE.Mesh(geometry, material);
-        // // mesh.position.y = geometry.parameters.height
-        // mesh.position.y = 0
+        const loader = new THREE.TextureLoader();
 
-        // mesh.rotation.x = -Math.PI / 2;
-        // // markerRoot.add( mesh );
-        // arWorldRoot.add(mesh)
+        const material = new THREE.MeshBasicMaterial({
+            map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+            side: THREE.SingleSide
+        });
+
+
+
+
+        var mesh = new THREE.Mesh(geometry, material);
+        // mesh.position.y = geometry.parameters.height
+        mesh.position.y = 0
+
+        mesh.rotation.x = -Math.PI / 2;
+        // markerRoot.add( mesh );
+        arWorldRoot.add(mesh)
 
         // var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
         // var material	= new THREE.MeshNormalMaterial();
@@ -272,11 +223,6 @@
         document.body.appendChild(stats.dom);
         // render the scene
         onRenderFcts.push(function() {
-            if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                videoImageContext.drawImage(video, 0, 0);
-                if (videoTexture)
-                    videoTexture.needsUpdate = true;
-            }
             renderer.render(scene, camera);
             stats.update();
         })
