@@ -23,8 +23,14 @@
     </div>
     <!-- <video id="video" style="display:none" autoplay playsinline></video> -->
     <video id="video" loop crossOrigin="anonymous" playsinline style="display:none">
-	<source src="fulbutte.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-</video>
+		<source src="fulbutte.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+	</video>
+
+    <div id="container"></div>
+
+    <video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
+			<source src="fulbutte.mp4">
+		</video>
     <script>
         //////////////////////////////////////////////////////////////////////////////////
         //		Init
@@ -134,8 +140,8 @@
         var markerScene = new THREE.Scene()
         markerGroup.add(markerScene)
 
-        var mesh = new THREE.AxesHelper()
-        markerScene.add(mesh)
+        // var mesh = new THREE.AxesHelper()
+        // markerScene.add(mesh)
 
         // add a torus knot
         // var geometry	= new THREE.CubeGeometry(1,1,1);
@@ -154,16 +160,27 @@
         // mesh.position.y	= 0.5
         // markerScene.add( mesh );
 
-
-        video = document.getElementById('video');
+        const video = document.getElementById('video');
         video.play();
-        video.addEventListener('play', function() {
 
-            this.currentTime = 3;
+        const texture = new THREE.VideoTexture(video);
+        const material = new THREE.MeshBasicMaterial({
+            map: texture
+        });
 
-        }, false);
+        // const mesh = new THREE.Mesh(geometry, material);
+        // markerScene.add(mesh);
 
-        texture = new THREE.VideoTexture(video);
+
+        // video = document.getElementById('video');
+        // video.play();
+        // video.addEventListener('play', function() {
+
+        //     this.currentTime = 3;
+
+        // }, false);
+
+        // texture = new THREE.VideoTexture(video);
 
         const loader = new THREE.TextureLoader();
 
