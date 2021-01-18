@@ -271,6 +271,11 @@
         document.body.appendChild(stats.dom);
         // render the scene
         onRenderFcts.push(function() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                videoImageContext.drawImage(video, 0, 0);
+                if (videoTexture)
+                    videoTexture.needsUpdate = true;
+            }
             renderer.render(scene, camera);
             stats.update();
         })
