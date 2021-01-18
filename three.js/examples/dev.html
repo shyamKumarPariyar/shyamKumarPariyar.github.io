@@ -183,7 +183,7 @@
             side: THREE.SingleSide
         })
         var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.y = geometry.parameters.height
+        mesh.position.y = -geometry.parameters.height
 
         mesh.rotation.x = -Math.PI / 2;
         // markerRoot.add( mesh );
