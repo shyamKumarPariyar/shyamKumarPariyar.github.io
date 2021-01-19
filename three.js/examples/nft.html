@@ -185,23 +185,30 @@
 
         var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
         // find out which file formats i can read
-        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
-        if (canPlayMp4) {
-            var url = '/sample.mp4'
-        } else alert('cant play mp4')
+        // var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
+        // if (canPlayMp4) {
+        //     var url = '/sample.mp4'
+        // } else alert('cant play mp4')
 
-        // create the videoTexture
-        var videoTexture = new THREEx.VideoTexture(url)
-        var video = videoTexture.video
-            // video.play()
-        onRenderFcts.push(function(delta, now) {
-            videoTexture.update(delta, now)
-        })
+        // // create the videoTexture
+        // var videoTexture = new THREEx.VideoTexture(url)
+        // var video = videoTexture.video
+        //     // video.play()
+        // onRenderFcts.push(function(delta, now) {
+        //     videoTexture.update(delta, now)
+        // })
 
 
-        var material = new THREE.MeshBasicMaterial({
-            map: videoTexture.texture
+        // var material = new THREE.MeshBasicMaterial({
+        //     map: videoTexture.texture
+        // });
+        const loader = new THREE.TextureLoader();
+
+        const material = new THREE.MeshBasicMaterial({
+            map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+            side: THREE.SingleSide
         });
+
         var mesh = new THREE.Mesh(geometry, material);
         // mesh.position.y = geometry.parameters.height
         mesh.position.y = 0
@@ -210,23 +217,23 @@
         // markerRoot.add( mesh );
         arWorldRoot.add(mesh)
 
-        smoothedControls.addEventListener('becameVisible', function() {
-            console.log('becameVisible event notified')
-            video.play()
+        // smoothedControls.addEventListener('becameVisible', function() {
+        //     console.log('becameVisible event notified')
+        //     video.play()
 
-        })
-        smoothedControls.addEventListener('becameUnVisible', function() {
-            console.log('becameUnVisible event notified')
-            video.pause()
-        })
+        // })
+        // smoothedControls.addEventListener('becameUnVisible', function() {
+        //     console.log('becameUnVisible event notified')
+        //     video.pause()
+        // })
 
         // render the scene
         mixture.push(function() {
-                if (mixers.length > 0) {
-                    for (var i = 0; i < mixers.length; i++) {
-                        mixers[i].update(clock.getDelta());
-                    }
-                }
+                // if (mixers.length > 0) {
+                //     for (var i = 0; i < mixers.length; i++) {
+                //         mixers[i].update(clock.getDelta());
+                //     }
+                // }
 
                 if (!arToolkitSource.ready) {
                     return;
