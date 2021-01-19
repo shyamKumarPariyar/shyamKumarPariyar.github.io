@@ -168,12 +168,12 @@
             smoothedControls.update(markerRoot)
         })
 
-        // smoothedControls.addEventListener('becameVisible', function(){
-        // 	console.log('becameVisible event notified')
-        // })
-        // smoothedControls.addEventListener('becameUnVisible', function(){
-        // 	console.log('becameUnVisible event notified')
-        // })
+        smoothedControls.addEventListener('becameVisible', function() {
+            console.log('becameVisible event notified')
+        })
+        smoothedControls.addEventListener('becameUnVisible', function() {
+            console.log('becameUnVisible event notified')
+        })
 
         //////////////////////////////////////////////////////////////////////////////////
         //		add an object in the scene
