@@ -29,9 +29,9 @@
         <a href='https://github.com/AR-js-org/AR.js/' target='_blank'>AR.js</a> - developement playground
         <br/> Contact me any time at <a href='https://twitter.com/nicolocarp' target='_blank'>@nicolocarp</a>
     </div>
-    <!-- <video id="video" muted crossOrigin="anonymous" playsinline style="">
-		<source src="fulbutte.mp4">
-	</video> -->
+    <video id="video" muted crossOrigin="anonymous" playsinline style="">
+		<source src="/fulbutte.mp4">
+	</video>
     <script>
         //////////////////////////////////////////////////////////////////////////////////
         //		Init
@@ -203,7 +203,7 @@
 
 
         // find out which file formats i can read
-        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
+        var canPlayMp4 = document.getElementById('video').canPlayType('video/mp4') !== '' ? true : false
         if (canPlayMp4) {
             var url = '/fulbutte.mp4'
         } else alert('cant play mp4')
