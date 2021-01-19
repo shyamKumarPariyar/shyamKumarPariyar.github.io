@@ -14,7 +14,6 @@
 <script src='../src/threex/threex-armarkercontrols.js'></script>
 <script src='../src/threex/threex-arsmoothedcontrols.js'></script>
 <script src='../src/threex/threex.videotexture.js'></script>
-<script src='../build/ar-nft.js'></script>
 <script>
     THREEx.ArToolkitContext.baseURL = '../'
 </script>
@@ -87,11 +86,6 @@
         })
 
 
-        // listener for end loading of NFT marker
-        window.addEventListener('arjs-nft-loaded', function(ev) {
-            console.log('SHYAM ARJS-NFT Is Loaded : -', ev);
-        })
-
         function onResize() {
             arToolkitSource.onResizeElement()
             arToolkitSource.copyElementSizeTo(renderer.domElement)
@@ -150,6 +144,7 @@
             descriptorsUrl: 'data/dataNFT/pinball',
             changeMatrixMode: 'cameraTransformMatrix'
         })
+
 
         // build a smoothedControls
         var smoothedRoot = new THREE.Group()
