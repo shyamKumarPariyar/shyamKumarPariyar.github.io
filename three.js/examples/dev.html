@@ -13,7 +13,6 @@
 <script src='../src/threex/threex-arbasecontrols.js'></script>
 <script src='../src/threex/threex-armarkercontrols.js'></script>
 <script src='../src/threex/threex-arsmoothedcontrols.js'></script>
-<script src='../src/threex/threex.videotexture.js'></script>
 <script>
     THREEx.ArToolkitContext.baseURL = '../'
 </script>
@@ -22,12 +21,10 @@
     <div style='position: absolute; top: 10px; width:100%; text-align: center;z-index:1' ;>
         <a href='https://github.com/AR-js-org/AR.js/' target='_blank'>AR.js</a> - developement playground
         <br/> Contact me any time at <a href='https://twitter.com/nicolocarp' target='_blank'>@nicolocarp</a>
-        <button onclick='onVideoPlayButtonClick()'>play</button>
-        <button onclick='onVideoPauseButtonClick()'>pause</button>
     </div>
-    <!-- <video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
+    <video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
 		<source src="fulbutte.mp4">
-	</video> -->
+	</video>
     <script>
         //////////////////////////////////////////////////////////////////////////////////
         //		Init
@@ -38,7 +35,7 @@
             antialias: true,
             alpha: true
         });
-        renderer.setClearColor(new THREE.Color('lightgrey'), 1)
+        renderer.setClearColor(new THREE.Color('lightgrey'), 0)
             // renderer.setPixelRatio( 2 );
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.domElement.style.position = 'absolute'
@@ -64,17 +61,8 @@
         //////////////////////////////////////////////////////////////////////////////////
 
         // Create a camera
-        // var camera = new THREE.Camera();
-        // scene.add(camera);
-
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 100);
-        camera.position.z = 3;
-
-        // find out which file formats i can read
-        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
-        if (canPlayMp4) {
-            var url = '/fulbutte.mp4'
-        } else alert('cant play mp4 or ogv')
+        var camera = new THREE.Camera();
+        scene.add(camera);
 
         ////////////////////////////////////////////////////////////////////////////////
         //          handle arToolkitSource
@@ -191,7 +179,7 @@
         // arWorldRoot.add(mesh)
 
         // add a torus knot
-        // var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
+        var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
         // var material = new THREE.MeshNormalMaterial({
         //     transparent: false,
         //     opacity: 0.5,
@@ -199,46 +187,23 @@
         // })
 
 
-        // const loader = new THREE.TextureLoader();
+        const loader = new THREE.TextureLoader();
 
-        // const material = new THREE.MeshBasicMaterial({
-        //     map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
-        //     side: THREE.SingleSide
-        // });
-
-
-
-
-        // var mesh = new THREE.Mesh(geometry, material);
-        // mesh.position.y = geometry.parameters.height
-        // mesh.position.y = 0
-
-        // mesh.rotation.x = -Math.PI / 2;
-        // markerRoot.add( mesh );
-        // arWorldRoot.add(mesh)
-
-
-
-        // video start
-        // create the videoTexture
-        var videoTexture = new THREEx.VideoTexture(url)
-        var video = videoTexture.video
-            // video.play()
-        onRenderFcts.push(function(delta, now) {
-            videoTexture.update(delta, now)
-        })
-
-        // use the texture in a THREE.Mesh
-        var geometry = new THREE.PlaneGeometry(1, 1, 1);
-        var material = new THREE.MeshBasicMaterial({
-            map: videoTexture.texture
+        const material = new THREE.MeshBasicMaterial({
+            map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+            side: THREE.SingleSide
         });
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.y = 0
-        mesh.rotation.x = -Math.PI / 2;
-        arWorldRoot.add(mesh);
 
-        // video end
+
+
+
+        var mesh = new THREE.Mesh(geometry, material);
+        // mesh.position.y = geometry.parameters.height
+        mesh.position.y = 0
+
+        mesh.rotation.x = -Math.PI / 2;
+        // markerRoot.add( mesh );
+        arWorldRoot.add(mesh)
 
         // var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
         // var material	= new THREE.MeshNormalMaterial();
@@ -261,15 +226,6 @@
             renderer.render(scene, camera);
             stats.update();
         })
-
-        function onVideoPlayButtonClick() {
-            video.play()
-        }
-
-        function onVideoPauseButtonClick() {
-            video.pause()
-        }
-
 
         // run the rendering loop
         var lastTimeMsec = null
