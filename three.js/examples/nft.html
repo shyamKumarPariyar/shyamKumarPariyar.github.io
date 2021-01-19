@@ -5,7 +5,19 @@
 <script src='vendor/three.js/build/three.min.js'></script>
 <script src='vendor/three.js/examples/js/libs/stats.min.js'></script>
 <!-- three.js load GLTF -->
-<script src='vendor/three.js/GLTFLoader.js'></script>
+<!-- <script src='vendor/three.js/GLTFLoader.js'></script> -->
+
+<!-- jsartookit -->
+<script src='../vendor/jsartoolkit5/build/artoolkit.min.js'></script>
+<script src='../vendor/jsartoolkit5/js/artoolkit.api.js'></script>
+<!-- include threex.artoolkit -->
+<script src='../src/threex/threex-artoolkitsource.js'></script>
+<script src='../src/threex/threex-artoolkitcontext.js'></script>
+<script src='../src/threex/threex-artoolkitprofile.js'></script>
+<script src='../src/threex/threex-arbasecontrols.js'></script>
+<script src='../src/threex/threex-armarkercontrols.js'></script>
+
+
 <!-- ar.js -->
 <script src='../build/ar-nft.js'></script>
 <script src='../src/threex/threex-arsmoothedcontrols.js'></script>
@@ -67,7 +79,7 @@
         var renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true,
-            precision: 'mediump',
+            // precision: 'mediump',
         });
 
         var clock = new THREE.Clock();
