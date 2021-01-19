@@ -255,7 +255,7 @@
             var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
             lastTimeMsec = nowMsec
                 // call each update function
-            mixture.forEach(function(onRenderFct) {
+            mixers.forEach(function(onRenderFct) {
                 onRenderFct(deltaMsec / 1000, nowMsec / 1000)
             })
         })
