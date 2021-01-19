@@ -155,6 +155,8 @@
         ////////////////////////////////////////////////////////////////////////////////
 
         // init controls for camera
+        var markerRoot = new THREE.Group
+        scene.add(markerRoot)
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
             type: 'nft',
             descriptorsUrl: 'data/dataNFT/pinball',
@@ -163,60 +165,132 @@
 
         scene.visible = false
 
-        var root = new THREE.Object3D();
-        scene.add(root);
-
-        //////////////////////////////////////////////////////////////////////////////////
-        //		add an object in the scene
-        //////////////////////////////////////////////////////////////////////////////////
-
-        var threeGLTFLoader = new THREE.GLTFLoader();
-        var model;
-
-        threeGLTFLoader.load("./resources/Flamingo.glb", function(gltf) {
-            model = gltf.scene.children[0];
-            model.name = 'Flamingo';
-
-            var animation = gltf.animations[0];
-            var mixer = new THREE.AnimationMixer(model);
-            mixers.push(mixer);
-            var action = mixer.clipAction(animation);
-            action.play();
-
-            root.matrixAutoUpdate = false;
-            root.add(model);
-
-            model.position.z = -200;
-            model.position.x = 100;
-            model.position.y = 100;
+        // var root = new THREE.Object3D();
+        // scene.add(root);
+        var smoothedRoot = new THREE.Group()
+        scene.add(smoothedRoot)
+        var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+            lerpPosition: 0.4,
+            lerpQuaternion: 0.3,
+            lerpScale: 1,
+            // minVisibleDelay: 1,
+            // minUnvisibleDelay: 1,
+        })
+        mixers.push(function(delta) {
+            smoothedControls.update(markerRoot)
+        })
 
 
-            //////////////////////////////////////////////////////////////////////////////////
-            //		render the whole thing on the page
-            //////////////////////////////////////////////////////////////////////////////////
+        var arWorldRoot = smoothedRoot
 
-            var animate = function() {
-                requestAnimationFrame(animate);
+        var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
+        // find out which file formats i can read
+        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
+        if (canPlayMp4) {
+            var url = '/sample.mp4'
+        } else alert('cant play mp4')
 
-                if (mixers.length > 0) {
-                    for (var i = 0; i < mixers.length; i++) {
-                        mixers[i].update(clock.getDelta());
-                    }
-                }
+        // create the videoTexture
+        var videoTexture = new THREEx.VideoTexture(url)
+        var video = videoTexture.video
+            // video.play()
+        onRenderFcts.push(function(delta, now) {
+            videoTexture.update(delta, now)
+        })
 
-                if (!arToolkitSource.ready) {
-                    return;
-                }
 
-                arToolkitContext.update(arToolkitSource.domElement)
-
-                // update scene.visible if the marker is seen
-                scene.visible = camera.visible;
-
-                renderer.render(scene, camera);
-            };
-
-            requestAnimationFrame(animate);
+        var material = new THREE.MeshBasicMaterial({
+            map: videoTexture.texture
         });
+        var mesh = new THREE.Mesh(geometry, material);
+        // mesh.position.y = geometry.parameters.height
+        mesh.position.y = 0
+
+        mesh.rotation.x = -Math.PI / 2;
+        // markerRoot.add( mesh );
+        arWorldRoot.add(mesh)
+
+        smoothedControls.addEventListener('becameVisible', function() {
+            console.log('becameVisible event notified')
+            video.play()
+
+        })
+        smoothedControls.addEventListener('becameUnVisible', function() {
+            console.log('becameUnVisible event notified')
+            video.pause()
+        })
+
+        // render the scene
+        onRenderFcts.push(function() {
+                renderer.render(scene, camera);
+            })
+            // run the rendering loop
+        var lastTimeMsec = null
+        requestAnimationFrame(function animate(nowMsec) {
+            // keep looping
+            requestAnimationFrame(animate);
+            // measure time
+            lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60
+            var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
+            lastTimeMsec = nowMsec
+                // call each update function
+            onRenderFcts.forEach(function(onRenderFct) {
+                onRenderFct(deltaMsec / 1000, nowMsec / 1000)
+            })
+        })
+
+
+        // //////////////////////////////////////////////////////////////////////////////////
+        // //		add an object in the scene
+        // //////////////////////////////////////////////////////////////////////////////////
+
+        // var threeGLTFLoader = new THREE.GLTFLoader();
+        // var model;
+
+        // threeGLTFLoader.load("./resources/Flamingo.glb", function(gltf) {
+        //     model = gltf.scene.children[0];
+        //     model.name = 'Flamingo';
+
+        //     var animation = gltf.animations[0];
+        //     var mixer = new THREE.AnimationMixer(model);
+        //     mixers.push(mixer);
+        //     var action = mixer.clipAction(animation);
+        //     action.play();
+
+        //     root.matrixAutoUpdate = false;
+        //     root.add(model);
+
+        //     model.position.z = -200;
+        //     model.position.x = 100;
+        //     model.position.y = 100;
+
+
+        //     //////////////////////////////////////////////////////////////////////////////////
+        //     //		render the whole thing on the page
+        //     //////////////////////////////////////////////////////////////////////////////////
+
+        //     var animate = function() {
+        //         requestAnimationFrame(animate);
+
+        //         if (mixers.length > 0) {
+        //             for (var i = 0; i < mixers.length; i++) {
+        //                 mixers[i].update(clock.getDelta());
+        //             }
+        //         }
+
+        //         if (!arToolkitSource.ready) {
+        //             return;
+        //         }
+
+        //         arToolkitContext.update(arToolkitSource.domElement)
+
+        //         // update scene.visible if the marker is seen
+        //         scene.visible = camera.visible;
+
+        //         renderer.render(scene, camera);
+        //     };
+
+        //     requestAnimationFrame(animate);
+        // });
     </script>
 </body>
