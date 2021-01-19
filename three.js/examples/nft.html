@@ -159,9 +159,15 @@
             camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
         })
 
-        ////////////////////////////////////////////////////////////////////////////////
-        //          Create a ArMarkerControls
-        ////////////////////////////////////////////////////////////////////////////////
+        // update artoolkit on every frame
+        mixers.push(function() {
+                if (arToolkitSource.ready === false) return
+
+                arToolkitContext.update(arToolkitSource.domElement)
+            })
+            ////////////////////////////////////////////////////////////////////////////////
+            //          Create a ArMarkerControls
+            ////////////////////////////////////////////////////////////////////////////////
 
         // init controls for camera
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
@@ -170,62 +176,147 @@
             changeMatrixMode: 'cameraTransformMatrix'
         })
 
-        scene.visible = false
+        // build a smoothedControls
+        var smoothedRoot = new THREE.Group()
+        scene.add(smoothedRoot)
+        var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+            lerpPosition: 0.4,
+            lerpQuaternion: 0.3,
+            lerpScale: 1,
+            // minVisibleDelay: 1,
+            // minUnvisibleDelay: 1,
+        })
+        mixers.push(function(delta) {
+            smoothedControls.update(markerRoot)
+        })
 
-        var root = new THREE.Object3D();
-        scene.add(root);
+        // start by me shyam
+
+        var arWorldRoot = smoothedRoot
+
+        var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
+        // find out which file formats i can read
+        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
+        if (canPlayMp4) {
+            var url = '/sample.mp4'
+        } else alert('cant play mp4')
+
+        // create the videoTexture
+        var videoTexture = new THREEx.VideoTexture(url)
+        var video = videoTexture.video
+            // video.play()
+        mixers.push(function(delta, now) {
+            videoTexture.update(delta, now)
+        })
+
+
+        var material = new THREE.MeshBasicMaterial({
+            map: videoTexture.texture
+        });
+        var mesh = new THREE.Mesh(geometry, material);
+        // mesh.position.y = geometry.parameters.height
+        mesh.position.y = 0
+
+        mesh.rotation.x = -Math.PI / 2;
+        // markerRoot.add( mesh );
+        arWorldRoot.add(mesh)
+
+        smoothedControls.addEventListener('becameVisible', function() {
+            console.log('becameVisible event notified')
+            video.play()
+
+        })
+        smoothedControls.addEventListener('becameUnVisible', function() {
+            console.log('becameUnVisible event notified')
+            video.pause()
+        })
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		render the whole thing on the page
+        //////////////////////////////////////////////////////////////////////////////////
+        var stats = new Stats();
+        document.body.appendChild(stats.dom);
+        // render the scene
+        mixers.push(function() {
+            renderer.render(scene, camera);
+            stats.update();
+        })
+
+        // run the rendering loop
+        var lastTimeMsec = null
+        requestAnimationFrame(function animate(nowMsec) {
+            // keep looping
+            requestAnimationFrame(animate);
+            // measure time
+            lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60
+            var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
+            lastTimeMsec = nowMsec
+                // call each update function
+            mixers.forEach(function(onRenderFct) {
+                onRenderFct(deltaMsec / 1000, nowMsec / 1000)
+            })
+        })
+
+        // end here shyam
+
+
+
+        // scene.visible = false
+
+        // var root = new THREE.Object3D();
+        // scene.add(root);
 
         //////////////////////////////////////////////////////////////////////////////////
         //		add an object in the scene
         //////////////////////////////////////////////////////////////////////////////////
 
-        var threeGLTFLoader = new THREE.GLTFLoader();
-        var model;
+        // var threeGLTFLoader = new THREE.GLTFLoader();
+        // var model;
 
-        threeGLTFLoader.load("./resources/Flamingo.glb", function(gltf) {
-            model = gltf.scene.children[0];
-            model.name = 'Flamingo';
+        // threeGLTFLoader.load("./resources/Flamingo.glb", function(gltf) {
+        //     model = gltf.scene.children[0];
+        //     model.name = 'Flamingo';
 
-            var animation = gltf.animations[0];
-            var mixer = new THREE.AnimationMixer(model);
-            mixers.push(mixer);
-            var action = mixer.clipAction(animation);
-            action.play();
+        //     var animation = gltf.animations[0];
+        //     var mixer = new THREE.AnimationMixer(model);
+        //     mixers.push(mixer);
+        //     var action = mixer.clipAction(animation);
+        //     action.play();
 
-            root.matrixAutoUpdate = false;
-            root.add(model);
+        //     root.matrixAutoUpdate = false;
+        //     root.add(model);
 
-            model.position.z = -200;
-            model.position.x = 100;
-            model.position.y = 100;
+        //     model.position.z = -200;
+        //     model.position.x = 100;
+        //     model.position.y = 100;
 
 
-            //////////////////////////////////////////////////////////////////////////////////
-            //		render the whole thing on the page
-            //////////////////////////////////////////////////////////////////////////////////
+        //     //////////////////////////////////////////////////////////////////////////////////
+        //     //		render the whole thing on the page
+        //     //////////////////////////////////////////////////////////////////////////////////
 
-            var animate = function() {
-                requestAnimationFrame(animate);
+        //     var animate = function() {
+        //         requestAnimationFrame(animate);
 
-                if (mixers.length > 0) {
-                    for (var i = 0; i < mixers.length; i++) {
-                        mixers[i].update(clock.getDelta());
-                    }
-                }
+        //         if (mixers.length > 0) {
+        //             for (var i = 0; i < mixers.length; i++) {
+        //                 mixers[i].update(clock.getDelta());
+        //             }
+        //         }
 
-                if (!arToolkitSource.ready) {
-                    return;
-                }
+        //         if (!arToolkitSource.ready) {
+        //             return;
+        //         }
 
-                arToolkitContext.update(arToolkitSource.domElement)
+        //         arToolkitContext.update(arToolkitSource.domElement)
 
-                // update scene.visible if the marker is seen
-                scene.visible = camera.visible;
+        //         // update scene.visible if the marker is seen
+        //         scene.visible = camera.visible;
 
-                renderer.render(scene, camera);
-            };
+        //         renderer.render(scene, camera);
+        //     };
 
-            requestAnimationFrame(animate);
-        });
+        //     requestAnimationFrame(animate);
+        // });
     </script>
 </body>
