@@ -6,7 +6,7 @@ THREEx.VideoTexture = function(url) {
     video.width = 320;
     video.height = 240;
     video.autoplay = true;
-    video.loop = false;
+    video.loop = true;
     video.src = url;
     // expose video as this.video
     this.video = video
