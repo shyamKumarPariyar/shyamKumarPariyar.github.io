@@ -17,21 +17,8 @@
 <script>
     THREEx.ArToolkitContext.baseURL = '../'
 </script>
-<div style='position: absolute; top: 0px; width: 100%;font-family:arial; font-weight: bolder; padding-top: 5px;'>
-    <a href='https://github.com/jeromeetienne/threex.videotexture' target="_blank">threex.videotexture</a> for <a href="http://threejs.org" target="_blank">three.js</a> - works on desktop and mobile
-    <br/> on IOS, start the video manually
-    <button onclick='onVideoPlayButtonClick()'>play</button>
-    <button onclick='onVideoPauseButtonClick()'>pause</button>
-</div>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-    <div style='position: absolute; top: 10px; width:100%; text-align: center;z-index:1' ;>
-        <a href='https://github.com/AR-js-org/AR.js/' target='_blank'>AR.js</a> - developement playground
-        <br/> Contact me any time at <a href='https://twitter.com/nicolocarp' target='_blank'>@nicolocarp</a>
-    </div>
-    <!-- <video id="video" muted crossOrigin="anonymous" playsinline style="">
-		<source src="/fulbutte.mp4">
-	</video> -->
     <script>
         //////////////////////////////////////////////////////////////////////////////////
         //		Init
@@ -229,15 +216,6 @@
         mesh.rotation.x = -Math.PI / 2;
         // markerRoot.add( mesh );
         arWorldRoot.add(mesh)
-
-        function onVideoPlayButtonClick() {
-            video.play()
-        }
-
-        function onVideoPauseButtonClick() {
-            video.pause()
-        }
-
 
         smoothedControls.addEventListener('becameVisible', function() {
             console.log('becameVisible event notified')
