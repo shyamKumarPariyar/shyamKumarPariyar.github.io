@@ -223,7 +223,7 @@
         // create the videoTexture
         var videoTexture = new THREEx.VideoTexture(url)
         var video = videoTexture.video
-        video.play()
+            // video.play()
         onRenderFcts.push(function(delta, now) {
             videoTexture.update(delta, now)
         })
