@@ -221,7 +221,7 @@
         })
 
         // render the scene
-        onRenderFcts.push(function() {
+        mixture.push(function() {
                 renderer.render(scene, camera);
             })
             // run the rendering loop
@@ -234,7 +234,7 @@
             var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
             lastTimeMsec = nowMsec
                 // call each update function
-            onRenderFcts.forEach(function(onRenderFct) {
+            mixture.forEach(function(onRenderFct) {
                 onRenderFct(deltaMsec / 1000, nowMsec / 1000)
             })
         })
