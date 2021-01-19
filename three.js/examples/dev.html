@@ -126,7 +126,8 @@
             })
             // initialize it
         arToolkitContext.init(function onCompleted() {
-            // copy projection matrix to camera
+            console.log('saam:- ')
+                // copy projection matrix to camera
             camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
         })
 
