@@ -101,14 +101,14 @@
         // create atToolkitContext
         var arToolkitContext = new THREEx.ArToolkitContext({
                 cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
-                // debug: true,
-                // detectionMode: 'mono_and_matrix',
-                detectionMode: 'mono',
-                // detectionMode: 'color_and_matrix',
+                debug: true,
+                detectionMode: 'mono_and_matrix',
+                // detectionMode: 'mono',
+                detectionMode: 'color_and_matrix',
                 matrixCodeType: '3x3',
 
-                canvasWidth: window.innerWidth,
-                canvasHeight: window.innerHeight,
+                canvasWidth: 80 * 4,
+                canvasHeight: 60 * 4,
 
                 maxDetectionRate: 100,
             })
