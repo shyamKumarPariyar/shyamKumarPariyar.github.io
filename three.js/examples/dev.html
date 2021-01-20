@@ -65,8 +65,6 @@
         var arToolkitSource = new THREEx.ArToolkitSource({
             // to read from the webcam
             sourceType: 'webcam',
-            sourceWidth: window.innerWidth,
-            sourceHeight: window.innerHeight,
 
             // // to read from an image
             //  sourceType : 'image',
@@ -112,7 +110,10 @@
                 canvasWidth: 80 * 3,
                 canvasHeight: 60 * 3,
 
-                maxDetectionRate: 30,
+                maxDetectionRate: 100,
+            }, {
+                sourceWidth: 480,
+                sourceHeight: 640,
             })
             // initialize it
         arToolkitContext.init(function onCompleted() {
