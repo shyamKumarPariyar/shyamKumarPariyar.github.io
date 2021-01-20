@@ -105,15 +105,12 @@
                 // detectionMode: 'mono_and_matrix',
                 detectionMode: 'mono',
                 // detectionMode: 'color_and_matrix',
-                // matrixCodeType: '3x3',
+                matrixCodeType: '3x3',
 
                 canvasWidth: 80 * 3,
                 canvasHeight: 60 * 3,
 
                 maxDetectionRate: 100,
-            }, {
-                sourceWidth: 480,
-                sourceHeight: 640,
             })
             // initialize it
         arToolkitContext.init(function onCompleted() {
