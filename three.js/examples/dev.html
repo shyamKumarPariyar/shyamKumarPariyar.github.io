@@ -64,7 +64,11 @@
 
         var arToolkitSource = new THREEx.ArToolkitSource({
             // to read from the webcam
+
             sourceType: 'webcam',
+            displayWidth: 640,
+            displayHeight: 480,
+
 
             // // to read from an image
             //  sourceType : 'image',
@@ -101,16 +105,18 @@
         // create atToolkitContext
         var arToolkitContext = new THREEx.ArToolkitContext({
                 cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
-                debug: true,
+                // debug: true,
                 // detectionMode: 'mono_and_matrix',
                 // detectionMode: 'mono',
-                detectionMode: 'color_and_matrix',
+                detectionMode: 'color',
                 // matrixCodeType: '3x3',
+                patternRatio: 0.5,
 
-                canvasWidth: 80 * 4,
-                canvasHeight: 60 * 4,
+                canvasWidth: 80 * 8,
+                canvasHeight: 60 * 8,
 
-                maxDetectionRate: 100,
+                maxDetectionRate: 60,
+                imageSmoothingEnabled: true,
             })
             // initialize it
         arToolkitContext.init(function onCompleted() {
@@ -138,6 +144,11 @@
 
             type: 'pattern',
             patternUrl: THREEx.ArToolkitContext.baseURL + 'examples/marker-training/examples/pattern-files/pattern-pinball.patt',
+            size: 2,
+            smooth: true,
+            smoothCount: 5,
+            smoothTolerance: 0.01,
+            smoothThreshold: 2,
         })
 
 
