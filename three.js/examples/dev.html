@@ -93,6 +93,10 @@
             onResize()
         })
 
+        window.addEventListener('artoolkit-loaded', () => {
+            onResize()
+        });
+
 
         function onResize() {
             arToolkitSource.onResizeElement()
@@ -210,10 +214,16 @@
         var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
         var canPlayMov = document.createElement('video').canPlayType('video/mov') !== '' ? true : false
         if (canPlayMp4) {
+            console.log('can play mp4');
             var url = '/video.mp4'
         } else if (canPlayMov) {
+            console.log('can play mov');
             var url = '/video.mov'
-        } else alert('cant play mp4 or mov')
+        } else {
+
+            console.log('cannot play media');
+            alert('cant play mp4 or mov')
+        }
 
         // create the videoTexture
         var videoTexture = new THREEx.VideoTexture(url)
