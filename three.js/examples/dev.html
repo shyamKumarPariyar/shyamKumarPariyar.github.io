@@ -148,7 +148,7 @@
 
             type: 'pattern',
             patternUrl: THREEx.ArToolkitContext.baseURL + 'examples/marker-training/examples/pattern-files/pattern-pinball.patt',
-            size: 0,
+            size: -0.5,
             smooth: true,
             smoothCount: 3,
             smoothTolerance: 0.0001,
@@ -160,9 +160,9 @@
         var smoothedRoot = new THREE.Group()
         scene.add(smoothedRoot)
         var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
-            lerpPosition: 0.1,
+            lerpPosition: 0,
             lerpQuaternion: 0.3,
-            lerpScale: 1,
+            lerpScale: 0,
             minVisibleDelay: 1,
             minUnvisibleDelay: 1,
         })
