@@ -30,7 +30,7 @@
             alpha: true
         });
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-            // renderer.setPixelRatio( 2 );
+        renderer.setPixelRatio(2);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.domElement.style.position = 'absolute'
         renderer.domElement.style.top = '0px'
@@ -70,8 +70,8 @@
             // sourceWidth: window.innerWidth,
             // sourceHeight: window.innerHeight,
             // resolution displayed for the source 
-            displayWidth: 80 * 8,
-            displayHeight: 60 * 8,
+            displayWidth: window.innerWidth,
+            displayHeight: window.innerHeight,
 
 
             // // to read from an image
