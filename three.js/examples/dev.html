@@ -30,7 +30,7 @@
             alpha: true
         });
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-        renderer.setPixelRatio(4);
+        renderer.setPixelRatio(5);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.domElement.style.position = 'absolute'
         renderer.domElement.style.top = '0px'
@@ -102,6 +102,13 @@
         });
 
 
+        function onResize() {
+            arToolkitSource.onResizeElement()
+            arToolkitSource.copyElementSizeTo(renderer.domElement)
+            if (arToolkitContext.arController !== null) {
+                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
+            }
+        }
 
         ////////////////////////////////////////////////////////////////////////////////
         //          initialize arToolkitContext
@@ -135,16 +142,6 @@
 
             arToolkitContext.update(arToolkitSource.domElement)
         })
-
-
-
-        function onResize() {
-            arToolkitSource.onResizeElement()
-            arToolkitSource.copyElementSizeTo(renderer.domElement)
-            if (arToolkitContext.arController !== null) {
-                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
-            }
-        }
 
 
         ////////////////////////////////////////////////////////////////////////////////
