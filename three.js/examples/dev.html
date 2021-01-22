@@ -87,9 +87,7 @@
         arToolkitSource.init(function onReady() {
             onResize()
         })
-        arToolkitSource.onReady(() => {
-            onResize()
-        })
+
 
         // handle resize
         window.addEventListener('resize', function() {
@@ -123,8 +121,8 @@
                 // matrixCodeType: '3x3',
                 patternRatio: 0.5,
 
-                canvasWidth: 80 * 8,
-                canvasHeight: 60 * 8,
+                canvasWidth: window.innerWidth,
+                canvasHeight: window.innerHeight,
 
                 maxDetectionRate: 30,
                 imageSmoothingEnabled: true,
