@@ -87,6 +87,9 @@
         arToolkitSource.init(function onReady() {
             onResize()
         })
+        arToolkitSource.onReady(() => {
+            onResize()
+        })
 
         // handle resize
         window.addEventListener('resize', function() {
