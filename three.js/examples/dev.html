@@ -117,12 +117,13 @@
                 // debug: true,
                 // detectionMode: 'mono_and_matrix',
                 // detectionMode: 'mono',
-                detectionMode: 'color',
+                // detectionMode: 'color',
+                detectionMode: 'template_matching_color',
                 // matrixCodeType: '3x3',
                 patternRatio: 0.5,
 
-                canvasWidth: window.innerWidth,
-                canvasHeight: window.innerHeight,
+                canvasWidth: 80 * 8,
+                canvasHeight: 60 * 8,
 
                 maxDetectionRate: 30,
                 imageSmoothingEnabled: true,
