@@ -208,9 +208,12 @@
 
         // find out which file formats i can read
         var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
+        var canPlayMov = document.createElement('video').canPlayType('video/mov') !== '' ? true : false
         if (canPlayMp4) {
-            var url = '/Tony_Rizzo_Intro.mp4'
-        } else alert('cant play mp4')
+            var url = '/video.mp4'
+        } else if (canPlayMov) {
+            var url = '/video.mov'
+        } else alert('cant play mp4 or mov')
 
         // create the videoTexture
         var videoTexture = new THREEx.VideoTexture(url)
