@@ -9,8 +9,8 @@ THREEx.VideoTexture = function(url) {
     video.loop = true;
     video.src = url;
     video.playsInline = true;
-    // video.webkit-playsInline = true;
-        // expose video as this.video
+    video.webkitPlaysinline = true;
+    // expose video as this.video
     this.video = video
 
     // create the texture
