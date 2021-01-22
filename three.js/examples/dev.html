@@ -30,11 +30,13 @@
             alpha: true
         });
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-        renderer.setPixelRatio(3);
+        renderer.setPixelRatio(4);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.domElement.style.position = 'absolute'
         renderer.domElement.style.top = '0px'
         renderer.domElement.style.left = '0px'
+        renderer.domElement.style.width = '100vw'
+        renderer.domElement.style.canvasHeight = '100vh'
         document.body.appendChild(renderer.domElement);
 
         // array of functions for the rendering loop
