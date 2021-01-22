@@ -1,7 +1,7 @@
 var ARjs = ARjs || {}
 var THREEx = THREEx || {}
 
-ARjs.Source = THREEx.ArToolkitSource = function (parameters) {
+ARjs.Source = THREEx.ArToolkitSource = function(parameters) {
     var _this = this
 
     this.ready = false
@@ -9,25 +9,26 @@ ARjs.Source = THREEx.ArToolkitSource = function (parameters) {
 
     // handle default parameters
     this.parameters = {
-        // type of source - ['webcam', 'image', 'video']
-        sourceType: 'webcam',
-        // url of the source - valid if sourceType = image|video
-        sourceUrl: null,
+            // type of source - ['webcam', 'image', 'video']
+            sourceType: 'webcam',
+            // url of the source - valid if sourceType = image|video
+            sourceUrl: null,
 
-        // Device id of the camera to use (optional)
-        deviceId: null,
+            // Device id of the camera to use (optional)
+            deviceId: null,
 
-        // resolution of at which we initialize in the source image
-        sourceWidth: 640,
-        sourceHeight: 480,
-        // resolution displayed for the source
-        displayWidth: 640,
-        displayHeight: 480,
-    }
-    //////////////////////////////////////////////////////////////////////////////
-    //		setParameters
-    //////////////////////////////////////////////////////////////////////////////
+            // resolution of at which we initialize in the source image
+            sourceWidth: 480,
+            sourceHeight: 640,
+            // resolution displayed for the source
+            displayWidth: 480,
+            displayHeight: 640,
+        }
+        //////////////////////////////////////////////////////////////////////////////
+        //		setParameters
+        //////////////////////////////////////////////////////////////////////////////
     setParameters(parameters)
+
     function setParameters(parameters) {
         if (parameters === undefined) return
         for (var key in parameters) {
@@ -53,7 +54,7 @@ ARjs.Source = THREEx.ArToolkitSource = function (parameters) {
 //////////////////////////////////////////////////////////////////////////////
 //		Code Separator
 //////////////////////////////////////////////////////////////////////////////
-ARjs.Source.prototype.init = function (onReady, onError) {
+ARjs.Source.prototype.init = function(onReady, onError) {
     var _this = this
 
     if (this.parameters.sourceType === 'image') {
@@ -76,6 +77,7 @@ ARjs.Source.prototype.init = function (onReady, onError) {
     this.domElement.setAttribute('id', 'arjs-video');
 
     return this
+
     function onSourceReady() {
         document.body.appendChild(_this.domElement);
         window.dispatchEvent(new CustomEvent('arjs-video-loaded', {
@@ -95,7 +97,7 @@ ARjs.Source.prototype.init = function (onReady, onError) {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-ARjs.Source.prototype._initSourceImage = function (onReady) {
+ARjs.Source.prototype._initSourceImage = function(onReady) {
     // TODO make it static
     var domElement = document.createElement('img');
     domElement.src = this.parameters.sourceUrl;
@@ -114,7 +116,7 @@ ARjs.Source.prototype._initSourceImage = function (onReady) {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-ARjs.Source.prototype._initSourceVideo = function (onReady) {
+ARjs.Source.prototype._initSourceVideo = function(onReady) {
     // TODO make it static
     var domElement = document.createElement('video');
     domElement.src = this.parameters.sourceUrl;
@@ -146,11 +148,11 @@ ARjs.Source.prototype._initSourceVideo = function (onReady) {
 //          handle webcam source
 ////////////////////////////////////////////////////////////////////////////////
 
-ARjs.Source.prototype._initSourceWebcam = function (onReady, onError) {
+ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
     var _this = this
 
     // init default value
-    onError = onError || function (error) {
+    onError = onError || function(error) {
         var event = new CustomEvent('camera-error', { error: error });
         window.dispatchEvent(event);
 
@@ -167,9 +169,9 @@ ARjs.Source.prototype._initSourceWebcam = function (onReady, onError) {
     domElement.style.height = this.parameters.displayHeight + 'px'
 
     // check API is available
-    if (navigator.mediaDevices === undefined
-        || navigator.mediaDevices.enumerateDevices === undefined
-        || navigator.mediaDevices.getUserMedia === undefined) {
+    if (navigator.mediaDevices === undefined ||
+        navigator.mediaDevices.enumerateDevices === undefined ||
+        navigator.mediaDevices.getUserMedia === undefined) {
         if (navigator.mediaDevices === undefined) var fctName = 'navigator.mediaDevices'
         else if (navigator.mediaDevices.enumerateDevices === undefined) var fctName = 'navigator.mediaDevices.enumerateDevices'
         else if (navigator.mediaDevices.getUserMedia === undefined) var fctName = 'navigator.mediaDevices.getUserMedia'
@@ -182,7 +184,7 @@ ARjs.Source.prototype._initSourceWebcam = function (onReady, onError) {
     }
 
     // get available devices
-    navigator.mediaDevices.enumerateDevices().then(function (devices) {
+    navigator.mediaDevices.enumerateDevices().then(function(devices) {
         var userMediaConstraints = {
             audio: false,
             video: {
@@ -214,19 +216,19 @@ ARjs.Source.prototype._initSourceWebcam = function (onReady, onError) {
             var event = new CustomEvent('camera-init', { stream: stream });
             window.dispatchEvent(event);
             // to start the video, when it is possible to start it only on userevent. like in android
-            document.body.addEventListener('click', function () {
+            document.body.addEventListener('click', function() {
                 domElement.play();
             });
             // domElement.play();
 
             onReady();
-        }).catch(function (error) {
+        }).catch(function(error) {
             onError({
                 name: error.name,
                 message: error.message
             });
         });
-    }).catch(function (error) {
+    }).catch(function(error) {
         onError({
             message: error.message
         });
@@ -238,7 +240,7 @@ ARjs.Source.prototype._initSourceWebcam = function (onReady, onError) {
 //////////////////////////////////////////////////////////////////////////////
 //		Handle Mobile Torch
 //////////////////////////////////////////////////////////////////////////////
-ARjs.Source.prototype.hasMobileTorch = function () {
+ARjs.Source.prototype.hasMobileTorch = function() {
     var stream = arToolkitSource.domElement.srcObject
     if (stream instanceof MediaStream === false) return false
 
@@ -260,7 +262,7 @@ ARjs.Source.prototype.hasMobileTorch = function () {
  * toggle the flash/torch of the mobile fun if applicable.
  * Great post about it https://www.oberhofer.co/mediastreamtrack-and-its-capabilities/
  */
-ARjs.Source.prototype.toggleMobileTorch = function () {
+ARjs.Source.prototype.toggleMobileTorch = function() {
     // sanity check
     console.assert(this.hasMobileTorch() === true)
 
@@ -287,15 +289,15 @@ ARjs.Source.prototype.toggleMobileTorch = function () {
         advanced: [{
             torch: this._currentTorchStatus
         }]
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.log(error)
     });
 }
 
-ARjs.Source.prototype.domElementWidth = function () {
+ARjs.Source.prototype.domElementWidth = function() {
     return parseInt(this.domElement.style.width)
 }
-ARjs.Source.prototype.domElementHeight = function () {
+ARjs.Source.prototype.domElementHeight = function() {
     return parseInt(this.domElement.style.height)
 }
 
@@ -303,61 +305,61 @@ ARjs.Source.prototype.domElementHeight = function () {
 //          handle resize
 ////////////////////////////////////////////////////////////////////////////////
 
-ARjs.Source.prototype.onResizeElement = function () {
-    var _this = this
-    var screenWidth = window.innerWidth
-    var screenHeight = window.innerHeight
+ARjs.Source.prototype.onResizeElement = function() {
+        var _this = this
+        var screenWidth = window.innerWidth
+        var screenHeight = window.innerHeight
 
-    // sanity check
-    console.assert(arguments.length === 0)
+        // sanity check
+        console.assert(arguments.length === 0)
 
-    // compute sourceWidth, sourceHeight
-    if (this.domElement.nodeName === "IMG") {
-        var sourceWidth = this.domElement.naturalWidth
-        var sourceHeight = this.domElement.naturalHeight
-    } else if (this.domElement.nodeName === "VIDEO") {
-        var sourceWidth = this.domElement.videoWidth
-        var sourceHeight = this.domElement.videoHeight
-    } else {
-        console.assert(false)
+        // compute sourceWidth, sourceHeight
+        if (this.domElement.nodeName === "IMG") {
+            var sourceWidth = this.domElement.naturalWidth
+            var sourceHeight = this.domElement.naturalHeight
+        } else if (this.domElement.nodeName === "VIDEO") {
+            var sourceWidth = this.domElement.videoWidth
+            var sourceHeight = this.domElement.videoHeight
+        } else {
+            console.assert(false)
+        }
+
+        // compute sourceAspect
+        var sourceAspect = sourceWidth / sourceHeight
+            // compute screenAspect
+        var screenAspect = screenWidth / screenHeight
+
+        // if screenAspect < sourceAspect, then change the width, else change the height
+        if (screenAspect < sourceAspect) {
+            // compute newWidth and set .width/.marginLeft
+            var newWidth = sourceAspect * screenHeight
+            this.domElement.style.width = newWidth + 'px'
+            this.domElement.style.marginLeft = -(newWidth - screenWidth) / 2 + 'px'
+
+            // init style.height/.marginTop to normal value
+            this.domElement.style.height = screenHeight + 'px'
+            this.domElement.style.marginTop = '0px'
+        } else {
+            // compute newHeight and set .height/.marginTop
+            var newHeight = 1 / (sourceAspect / screenWidth)
+            this.domElement.style.height = newHeight + 'px'
+            this.domElement.style.marginTop = -(newHeight - screenHeight) / 2 + 'px'
+
+            // init style.width/.marginLeft to normal value
+            this.domElement.style.width = screenWidth + 'px'
+            this.domElement.style.marginLeft = '0px'
+        }
     }
-
-    // compute sourceAspect
-    var sourceAspect = sourceWidth / sourceHeight
-    // compute screenAspect
-    var screenAspect = screenWidth / screenHeight
-
-    // if screenAspect < sourceAspect, then change the width, else change the height
-    if (screenAspect < sourceAspect) {
-        // compute newWidth and set .width/.marginLeft
-        var newWidth = sourceAspect * screenHeight
-        this.domElement.style.width = newWidth + 'px'
-        this.domElement.style.marginLeft = -(newWidth - screenWidth) / 2 + 'px'
-
-        // init style.height/.marginTop to normal value
-        this.domElement.style.height = screenHeight + 'px'
-        this.domElement.style.marginTop = '0px'
-    } else {
-        // compute newHeight and set .height/.marginTop
-        var newHeight = 1 / (sourceAspect / screenWidth)
-        this.domElement.style.height = newHeight + 'px'
-        this.domElement.style.marginTop = -(newHeight - screenHeight) / 2 + 'px'
-
-        // init style.width/.marginLeft to normal value
-        this.domElement.style.width = screenWidth + 'px'
-        this.domElement.style.marginLeft = '0px'
+    /*
+    ARjs.Source.prototype.copyElementSizeTo = function(otherElement){
+    	otherElement.style.width = this.domElement.style.width
+    	otherElement.style.height = this.domElement.style.height
+    	otherElement.style.marginLeft = this.domElement.style.marginLeft
+    	otherElement.style.marginTop = this.domElement.style.marginTop
     }
-}
-/*
-ARjs.Source.prototype.copyElementSizeTo = function(otherElement){
-	otherElement.style.width = this.domElement.style.width
-	otherElement.style.height = this.domElement.style.height
-	otherElement.style.marginLeft = this.domElement.style.marginLeft
-	otherElement.style.marginTop = this.domElement.style.marginTop
-}
-*/
+    */
 
-ARjs.Source.prototype.copyElementSizeTo = function (otherElement) {
+ARjs.Source.prototype.copyElementSizeTo = function(otherElement) {
 
     if (window.innerWidth > window.innerHeight) {
         //landscape
@@ -365,8 +367,7 @@ ARjs.Source.prototype.copyElementSizeTo = function (otherElement) {
         otherElement.style.height = this.domElement.style.height
         otherElement.style.marginLeft = this.domElement.style.marginLeft
         otherElement.style.marginTop = this.domElement.style.marginTop
-    }
-    else {
+    } else {
         //portrait
         otherElement.style.height = this.domElement.style.height
         otherElement.style.width = (parseInt(otherElement.style.height) * 4 / 3) + "px";
@@ -380,7 +381,7 @@ ARjs.Source.prototype.copyElementSizeTo = function (otherElement) {
 //		Code Separator
 //////////////////////////////////////////////////////////////////////////////
 
-ARjs.Source.prototype.copySizeTo = function () {
+ARjs.Source.prototype.copySizeTo = function() {
     console.warn('obsolete function arToolkitSource.copySizeTo. Use arToolkitSource.copyElementSizeTo')
     this.copyElementSizeTo.apply(this, arguments)
 }
@@ -389,7 +390,7 @@ ARjs.Source.prototype.copySizeTo = function () {
 //		Code Separator
 //////////////////////////////////////////////////////////////////////////////
 
-ARjs.Source.prototype.onResize = function (arToolkitContext, renderer, camera) {
+ARjs.Source.prototype.onResize = function(arToolkitContext, renderer, camera) {
     if (arguments.length !== 3) {
         console.warn('obsolete function arToolkitSource.onResize. Use arToolkitSource.onResizeElement')
         return this.onResizeElement.apply(this, arguments)
