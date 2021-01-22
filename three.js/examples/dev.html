@@ -124,14 +124,13 @@
                 canvasWidth: 80 * 8,
                 canvasHeight: 60 * 8,
 
-                maxDetectionRate: 30,
+                maxDetectionRate: 60,
                 imageSmoothingEnabled: true,
             })
             // initialize it
         arToolkitContext.init(function onCompleted() {
             // copy projection matrix to camera
             camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-            onResize()
         })
 
         // update artoolkit on every frame
