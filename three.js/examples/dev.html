@@ -247,6 +247,7 @@
 
         smoothedControls.addEventListener('becameVisible', function() {
             console.log('becameVisible event notified')
+            onResize()
             video.play()
 
         })
