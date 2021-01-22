@@ -88,9 +88,6 @@
             onResize()
         })
 
-        arToolkitSource.onResizeElement()
-        arToolkitSource.copyElementSizeTo(renderer.domElement)
-
 
         // handle resize
         window.addEventListener('resize', function() {
@@ -118,7 +115,7 @@
         var arToolkitContext = new THREEx.ArToolkitContext({
                 cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
                 // debug: true,
-                detectionMode: 'mono_and_matrix',
+                detectionMode: 'color_and_matrix',
                 // detectionMode: 'mono',
                 // detectionMode: 'color',
                 // matrixCodeType: '3x3',
