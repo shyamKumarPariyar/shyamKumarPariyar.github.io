@@ -5,12 +5,13 @@ THREEx.VideoTexture = function(url) {
     var video = document.createElement('video');
     video.width = 320;
     video.height = 240;
-    video.autoplay = false;
+    video.autoplay = true;
     video.loop = true;
     video.src = url;
     video.playsinline = true;
     video.webkitPlaysinline = true;
-    // expose video as this.video
+    video.muted = true
+        // expose video as this.video
     this.video = video
 
     // create the texture
