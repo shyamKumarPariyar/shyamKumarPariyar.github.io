@@ -250,6 +250,7 @@
             console.log('becameVisible event notified')
             onResize()
             video.play()
+            video.muted = false;
 
         })
         smoothedControls.addEventListener('becameUnVisible', function() {
