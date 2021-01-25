@@ -115,8 +115,8 @@
         var arToolkitContext = new THREEx.ArToolkitContext({
                 cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
                 // debug: true,
-                detectionMode: 'color_and_matrix',
-                // detectionMode: 'mono',
+                // detectionMode: 'color_and_matrix',
+                detectionMode: 'mono',
                 // detectionMode: 'color',
                 // matrixCodeType: '3x3',
                 patternRatio: 0.9,
@@ -148,9 +148,6 @@
         var markerRoot = new THREE.Group
         scene.add(markerRoot)
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-            // type: 'barcode',
-            // barcodeValue: 5,
-
             type: 'pattern',
             patternUrl: THREEx.ArToolkitContext.baseURL + 'examples/marker-training/examples/pattern-files/pattern-shyam.patt',
             size: 0,
@@ -168,20 +165,11 @@
             lerpPosition: 0.1,
             lerpQuaternion: 0.1,
             lerpScale: 0.2,
-            // minVisibleDelay: 1,
-            // minUnvisibleDelay: 1,
         })
         onRenderFcts.push(function(delta) {
             smoothedControls.update(markerRoot)
         })
 
-        // smoothedControls.addEventListener('becameVisible', function() {
-        //     console.log('becameVisible event notified')
-
-        // })
-        // smoothedControls.addEventListener('becameUnVisible', function() {
-        //     console.log('becameUnVisible event notified')
-        // })
 
         //////////////////////////////////////////////////////////////////////////////////
         //		add an object in the scene
@@ -196,40 +184,22 @@
 
         // add a torus knot
         var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
-        // var material = new THREE.MeshNormalMaterial({
-        //     transparent: false,
-        //     opacity: 0.5,
-        //     side: THREE.SingleSide
-        // })
-
-
-        // const loader = new THREE.TextureLoader();
-
-        // const material = new THREE.MeshBasicMaterial({
-        //     map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
-        //     side: THREE.SingleSide
-        // });
-
 
         // find out which file formats i can read
         var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
-        var canPlayMov = document.createElement('video').canPlayType('video/mov') !== '' ? true : false
         if (canPlayMp4) {
             console.log('can play mp4');
             var url = '/video.mp4'
-        } else if (canPlayMov) {
-            console.log('can play mov');
-            var url = '/video.mov'
         } else {
 
             console.log('cannot play media');
-            alert('cant play mp4 or mov')
+            alert('cant play mp4')
         }
 
         // create the videoTexture
         var videoTexture = new THREEx.VideoTexture(url)
         var video = videoTexture.video
-            // video.play()
+        video.muted = false
         onRenderFcts.push(function(delta, now) {
             videoTexture.update(delta, now)
         })
@@ -248,7 +218,7 @@
 
         smoothedControls.addEventListener('becameVisible', function() {
             console.log('becameVisible event notified')
-            onResize()
+                // onResize()
             video.play()
 
         })
