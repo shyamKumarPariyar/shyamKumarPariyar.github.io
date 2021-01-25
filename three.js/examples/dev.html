@@ -123,7 +123,7 @@
                 canvasWidth: 80 * 8,
                 canvasHeight: 60 * 8,
 
-                maxDetectionRate: 60,
+                maxDetectionRate: 30,
                 imageSmoothingEnabled: true,
             })
             // initialize it
@@ -164,7 +164,7 @@
         var smoothedRoot = new THREE.Group()
         scene.add(smoothedRoot)
         var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
-            lerpPosition: 0.1,
+            lerpPosition: 0.4,
             lerpQuaternion: 0.1,
             lerpScale: 0.2,
             // minVisibleDelay: 1,
