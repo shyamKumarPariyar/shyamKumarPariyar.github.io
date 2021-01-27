@@ -251,13 +251,13 @@
 
 
         smoothedControlsPinball.addEventListener('becameVisible', function() {
-            console.log('becameVisible event notified')
+            console.log('becameVisible pinball event notified')
             onResize()
             videoPinball.play()
 
         })
         smoothedControlsPinball.addEventListener('becameUnVisible', function() {
-            console.log('becameUnVisible event notified')
+            console.log('becameUnVisible pinball event notified')
             videoPinball.pause()
         })
 
