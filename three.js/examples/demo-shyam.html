@@ -31,9 +31,9 @@
         renderer.setClearColor(new THREE.Color('lightgrey'), 0)
         renderer.setPixelRatio(5);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        // renderer.domElement.style.position = 'absolute'
-        // renderer.domElement.style.top = '0px'
-        // renderer.domElement.style.left = '0px'
+        renderer.domElement.style.position = 'absolute'
+        renderer.domElement.style.top = '0px'
+        renderer.domElement.style.left = '0px'
         document.body.appendChild(renderer.domElement);
 
         // array of functions for the rendering loop
@@ -220,9 +220,9 @@
         var videoTexture = new THREEx.VideoTexture(url)
         var video = videoTexture.video
         video.muted = false
-        onRenderFcts.push(function(delta, now) {
-            videoTexture.update(delta, now)
-        })
+            // onRenderFcts.push(function(delta, now) {
+            //     videoTexture.update(delta, now)
+            // })
 
 
         var material = new THREE.MeshBasicMaterial({
@@ -240,9 +240,9 @@
         var videoTexturePinball = new THREEx.VideoTexture(urlPinball)
         var videoPinball = videoTexturePinball.video
         videoPinball.muted = false
-        onRenderFcts.push(function(delta, now) {
-            videoTexturePinball.update(delta, now)
-        })
+            // onRenderFcts.push(function(delta, now) {
+            //     videoTexturePinball.update(delta, now)
+            // })
 
 
         var materialPinball = new THREE.MeshBasicMaterial({
