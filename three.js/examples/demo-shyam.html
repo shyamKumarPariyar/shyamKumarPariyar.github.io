@@ -139,6 +139,21 @@
             smoothThreshold: 2,
         })
 
+        // build a smoothedControls
+        var smoothedRoot = new THREE.Group()
+        scene.add(smoothedRoot)
+        var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+            lerpPosition: 0.1,
+            lerpQuaternion: 0.1,
+            lerpScale: 0.2,
+        })
+
+
+
+        onRenderFcts.push(function(delta) {
+            smoothedControls.update(markerRoot)
+        })
+
 
         var markerRootPinnball = new THREE.Group
         scene.add(markerRootPinnball)
@@ -153,14 +168,8 @@
         })
 
 
-        // build a smoothedControls
-        var smoothedRoot = new THREE.Group()
-        scene.add(smoothedRoot)
-        var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
-            lerpPosition: 0.1,
-            lerpQuaternion: 0.1,
-            lerpScale: 0.2,
-        })
+
+
 
         var smoothedRootPinball = new THREE.Group()
         scene.add(smoothedRootPinball)
@@ -173,7 +182,6 @@
 
 
         onRenderFcts.push(function(delta) {
-            smoothedControls.update(markerRoot)
             smoothedControlsPinball.update(markerRootPinnball)
         })
 
