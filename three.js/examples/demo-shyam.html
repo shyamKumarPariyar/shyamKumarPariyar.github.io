@@ -200,6 +200,15 @@
         if (canPlayMp4) {
             console.log('can play mp4');
             var url = '/video.mp4'
+        } else {
+
+            console.log('cannot play media');
+            alert('cant play mp4')
+        }
+
+        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
+        if (canPlayMp4) {
+            console.log('can play mp4');
             var urlPinball = '/pinball.mp4'
         } else {
 
