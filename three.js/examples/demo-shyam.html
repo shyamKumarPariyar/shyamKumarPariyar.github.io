@@ -221,8 +221,8 @@
 
         // create the videoTexture
         var videoTexturePinball = new THREEx.VideoTexture(urlPinball)
-        var video = videoTexturePinball.video
-        video.muted = false
+        var videoPinball = videoTexturePinball.video
+        videoPinball.muted = false
         onRenderFcts.push(function(delta, now) {
             videoTexturePinball.update(delta, now)
         })
@@ -245,6 +245,18 @@
 
         })
         smoothedControls.addEventListener('becameUnVisible', function() {
+            console.log('becameUnVisible event notified')
+            video.pause()
+        })
+
+
+        smoothedControlsPinball.addEventListener('becameVisible', function() {
+            console.log('becameVisible event notified')
+            onResize()
+            video.play()
+
+        })
+        smoothedControlsPinball.addEventListener('becameUnVisible', function() {
             console.log('becameUnVisible event notified')
             video.pause()
         })
