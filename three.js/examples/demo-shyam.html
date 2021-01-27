@@ -162,11 +162,19 @@
             lerpScale: 0.2,
         })
 
+        var smoothedRootPinball = new THREE.Group()
+        scene.add(smoothedRootPinball)
+        var smoothedControlsPinball = new THREEx.ArSmoothedControls(smoothedRootPinball, {
+            lerpPosition: 0.1,
+            lerpQuaternion: 0.1,
+            lerpScale: 0.2,
+        })
+
 
 
         onRenderFcts.push(function(delta) {
             smoothedControls.update(markerRoot)
-            smoothedControls.update(markerRootPinnball)
+            smoothedControlsPinball.update(markerRootPinnball)
         })
 
 
