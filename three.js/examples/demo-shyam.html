@@ -139,6 +139,7 @@
             smoothThreshold: 2,
         })
 
+
         // build a smoothedControls
         var smoothedRoot = new THREE.Group()
         scene.add(smoothedRoot)
@@ -147,42 +148,8 @@
             lerpQuaternion: 0.1,
             lerpScale: 0.2,
         })
-
-
-
         onRenderFcts.push(function(delta) {
             smoothedControls.update(markerRoot)
-        })
-
-
-        var markerRootPinnball = new THREE.Group
-        scene.add(markerRootPinnball)
-        var markerControlsPinball = new THREEx.ArMarkerControls(arToolkitContext, markerRootPinnball, {
-            type: 'pattern',
-            patternUrl: THREEx.ArToolkitContext.baseURL + 'examples/marker-training/examples/pattern-files/pattern-pinball.patt',
-            size: 0,
-            smooth: true,
-            smoothCount: 3,
-            smoothTolerance: 0.0001,
-            smoothThreshold: 2,
-        })
-
-
-
-
-
-        var smoothedRootPinball = new THREE.Group()
-        scene.add(smoothedRootPinball)
-        var smoothedControlsPinball = new THREEx.ArSmoothedControls(smoothedRootPinball, {
-            lerpPosition: 0.1,
-            lerpQuaternion: 0.1,
-            lerpScale: 0.2,
-        })
-
-
-
-        onRenderFcts.push(function(delta) {
-            smoothedControlsPinball.update(markerRootPinnball)
         })
 
 
@@ -190,6 +157,7 @@
         //		add an object in the scene
         //////////////////////////////////////////////////////////////////////////////////
 
+        // var arWorldRoot = markerRoot
         var arWorldRoot = smoothedRoot
 
         // add a plane 
@@ -206,23 +174,13 @@
             alert('cant play mp4')
         }
 
-        var canPlayMp4 = document.createElement('video').canPlayType('video/mp4') !== '' ? true : false
-        if (canPlayMp4) {
-            console.log('can play mp4');
-            var urlPinball = '/pinball.mp4'
-        } else {
-
-            console.log('cannot play media');
-            alert('cant play mp4')
-        }
-
         // create the videoTexture
         var videoTexture = new THREEx.VideoTexture(url)
         var video = videoTexture.video
         video.muted = false
-            // onRenderFcts.push(function(delta, now) {
-            //     videoTexture.update(delta, now)
-            // })
+        onRenderFcts.push(function(delta, now) {
+            videoTexture.update(delta, now)
+        })
 
 
         var material = new THREE.MeshBasicMaterial({
@@ -236,25 +194,6 @@
         // markerRoot.add( mesh );
         arWorldRoot.add(mesh)
 
-        // create the videoTexture
-        var videoTexturePinball = new THREEx.VideoTexture(urlPinball)
-        var videoPinball = videoTexturePinball.video
-        videoPinball.muted = false
-            // onRenderFcts.push(function(delta, now) {
-            //     videoTexturePinball.update(delta, now)
-            // })
-
-
-        var materialPinball = new THREE.MeshBasicMaterial({
-            map: videoTexturePinball.texture
-        });
-        var meshPinball = new THREE.Mesh(geometry, materialPinball);
-        // mesh.position.y = geometry.parameters.height
-        meshPinball.position.y = 0
-
-        meshPinball.rotation.x = -Math.PI / 2;
-        arWorldRoot.add(meshPinball)
-
         smoothedControls.addEventListener('becameVisible', function() {
             console.log('becameVisible event notified')
             onResize()
@@ -264,18 +203,6 @@
         smoothedControls.addEventListener('becameUnVisible', function() {
             console.log('becameUnVisible event notified')
             video.pause()
-        })
-
-
-        smoothedControlsPinball.addEventListener('becameVisible', function() {
-            console.log('becameVisible pinball event notified')
-            onResize()
-            videoPinball.play()
-
-        })
-        smoothedControlsPinball.addEventListener('becameUnVisible', function() {
-            console.log('becameUnVisible pinball event notified')
-            videoPinball.pause()
         })
 
 
