@@ -2,7 +2,6 @@
 <meta name='viewport' content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
 <!-- three.js library -->
 <script src='vendor/three.js/build/three.js'></script>
-<script src='vendor/three.js/examples/js/libs/stats.min.js'></script>
 <!-- jsartookit -->
 <script src='../vendor/jsartoolkit5/build/artoolkit.min.js'></script>
 <script src='../vendor/jsartoolkit5/js/artoolkit.api.js'></script>
@@ -66,22 +65,8 @@
             // to read from the webcam
 
             sourceType: 'webcam',
-            // resolution of at which we initialize the source image
-            // sourceWidth: window.innerWidth,
-            // sourceHeight: window.innerHeight,
-            // resolution displayed for the source 
             displayWidth: window.innerWidth,
             displayHeight: window.innerHeight,
-
-
-            // // to read from an image
-            //  sourceType : 'image',
-            // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/images/img.jpg',
-            // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/images/armchair.jpg',
-
-            // to read from a video
-            // sourceType : 'video',
-            // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',
         })
 
         arToolkitSource.init(function onReady() {
@@ -113,21 +98,18 @@
 
         // create atToolkitContext
         var arToolkitContext = new THREEx.ArToolkitContext({
-                cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
-                // debug: true,
-                // detectionMode: 'color_and_matrix',
-                detectionMode: 'mono',
-                // detectionMode: 'color',
-                // matrixCodeType: '3x3',
-                patternRatio: 0.9,
+            cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
+            detectionMode: 'mono',
+            patternRatio: 0.9,
 
-                canvasWidth: 80 * 8,
-                canvasHeight: 60 * 8,
+            canvasWidth: 80 * 8,
+            canvasHeight: 60 * 8,
 
-                maxDetectionRate: 60,
-                imageSmoothingEnabled: true,
-            })
-            // initialize it
+            maxDetectionRate: 60,
+            imageSmoothingEnabled: true,
+        })
+
+        // initialize it
         arToolkitContext.init(function onCompleted() {
             // copy projection matrix to camera
             camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
@@ -178,11 +160,7 @@
         // var arWorldRoot = markerRoot
         var arWorldRoot = smoothedRoot
 
-        // var mesh = new THREE.AxesHelper()
-        // markerRoot.add(mesh)
-        // arWorldRoot.add(mesh)
-
-        // add a torus knot
+        // add a plane 
         var geometry = new THREE.PlaneGeometry(1, 1, 50, 50);
 
         // find out which file formats i can read
@@ -227,17 +205,6 @@
             video.pause()
         })
 
-
-        // var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-        // var material	= new THREE.MeshNormalMaterial();
-        // var mesh	= new THREE.Mesh( geometry, material );
-        // mesh.position.y	= 0.5
-        // // markerRoot.add( mesh );
-        // arWorldRoot.add( mesh );
-
-        // onRenderFcts.push(function(delta) {
-        //     mesh.rotation.x += delta * Math.PI
-        // })
 
         //////////////////////////////////////////////////////////////////////////////////
         //		render the whole thing on the page
