@@ -248,7 +248,6 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
         arController.addEventListener('getMarker', function(event) {
             if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
                 if (artoolkitMarkerId === null) return
-                console.log('Saam Debugging', artoolkitMarkerId)
                 if (event.data.marker.idPatt === artoolkitMarkerId) onMarkerFound(event)
             } else if (event.data.type === artoolkit.BARCODE_MARKER && _this.parameters.type === 'barcode') {
                 // console.log('BARCODE_MARKER idMatrix', event.data.marker.idMatrix, artoolkitMarkerId )
@@ -263,7 +262,7 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
 
     function onMarkerFound(event) {
         // honor his.parameters.minConfidence
-        console.log('Hello saam:- ', this.ARjs.ArMarkerControls.prototype.name)
+        console.log('Hello saam:- ', this.ARjs.ArMarkerControls)
         if (event.data.type === artoolkit.PATTERN_MARKER && event.data.marker.cfPatt < _this.parameters.minConfidence) return
         if (event.data.type === artoolkit.BARCODE_MARKER && event.data.marker.cfMatrix < _this.parameters.minConfidence) return
 
