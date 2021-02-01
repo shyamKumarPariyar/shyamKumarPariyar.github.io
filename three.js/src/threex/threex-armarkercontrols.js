@@ -232,7 +232,6 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
         // start tracking this pattern
         if (_this.parameters.type === 'pattern') {
             arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
-                console.log('Shyam Pattern', markerId)
                 artoolkitMarkerId = markerId
                 arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
             });
@@ -263,8 +262,8 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
     }
 
     function onMarkerFound(event) {
-        console.log('Saam Marker found', event.data)
-            // honor his.parameters.minConfidence
+        // honor his.parameters.minConfidence
+        console.log('Hello saam:- ', this.ARjs.ArMarkerControls.prototype.name)
         if (event.data.type === artoolkit.PATTERN_MARKER && event.data.marker.cfPatt < _this.parameters.minConfidence) return
         if (event.data.type === artoolkit.BARCODE_MARKER && event.data.marker.cfMatrix < _this.parameters.minConfidence) return
 
