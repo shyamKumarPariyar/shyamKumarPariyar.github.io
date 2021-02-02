@@ -48,11 +48,12 @@ AFRAME.registerComponent('markers_start', {
             videoEl.src = '/video.mp4';
             videoEl.setAttribute('id', 'vid_' + k);
             videoEl.muted = true
+            videoEl.autoplay = true
             assetEl.appendChild(videoEl);
 
 
             // //Adding plane to each marker
-            var planeEl = document.createElement('a-plane');
+            var planeEl = document.createElement('a-video');
 
             planeEl.setAttribute('id', 'plane-' + k);
             planeEl.setAttribute('width', 1);
@@ -62,7 +63,7 @@ AFRAME.registerComponent('markers_start', {
             planeEl.object3D.position.set(0, 0.5, 0);
             planeEl.object3D.rotation.set(-90, 0, 0);
 
-            markerEl.appendChild(planeEl);
+            sceneEl.appendChild(planeEl);
         }
     }
 });
