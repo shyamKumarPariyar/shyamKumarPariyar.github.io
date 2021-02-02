@@ -40,7 +40,7 @@ AFRAME.registerComponent('markers_start', {
 
             //Adding video assets to each marker
             var assetEl = document.createElement('a-assets');
-            assetEl.appendChild(markerEl);
+            markerEl.appendChild(assetEl);
 
             //Adding video assets to each marker
             var videoEl = document.createElement('video');
@@ -48,7 +48,7 @@ AFRAME.registerComponent('markers_start', {
             videoEl.src = '/video1.mp4';
             videoEl.setAttribute('id', 'vid_'.k);
             // videoEl.play()
-            videoEl.appendChild(assetEl);
+            assetEl.appendChild(videoEl);
 
 
             //Adding plane to each marker
