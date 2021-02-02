@@ -34,8 +34,6 @@ AFRAME.registerComponent('markers_start', {
             planeEl.setAttribute('width', 1);
             planeEl.setAttribute('height', 1);
             planeEl.setAttribute('color', '#7BC8A4');
-            // planeEl.setAttribute('src', '/video.mp4');
-            // textEl.setAttribute('text', { color: 'red', align: 'center', value: markersNameArray[k], width: '5.5' });
             planeEl.object3D.position.set(0, 0, 0);
             planeEl.object3D.rotation.set(-90, 0, 0);
 
