@@ -28,14 +28,24 @@ AFRAME.registerComponent('markers_start', {
             sceneEl.appendChild(markerEl);
 
             //Adding text to each marker
-            var planeEl = document.createElement('a-entity');
+            var textEl = document.createElement('a-entity');
+
+            textEl.setAttribute('id', 'text');
+            textEl.setAttribute('text', { color: 'red', align: 'center', value: markersNameArray[k], width: '5.5' });
+
+            textEl.object3D.position.set(0, 0.7, 0);
+            textEl.object3D.rotation.set(-90, 0, 0);
+            markerEl.appendChild(textEl);
+
+            //Adding plane to each marker
+            var planeEl = document.createElement('a-plane');
 
             planeEl.setAttribute('id', 'plane-'.k);
             planeEl.setAttribute('width', 1);
             planeEl.setAttribute('height', 1);
             planeEl.setAttribute('color', '#7BC8A4');
-            planeEl.object3D.position.set(0, 0.7, 0);
-            planeEl.object3D.rotation.set(-92, 0, 0);
+            planeEl.object3D.position.set(0, 0.5, 0);
+            planeEl.object3D.rotation.set(-90, 0, 0);
 
             markerEl.appendChild(planeEl);
         }
