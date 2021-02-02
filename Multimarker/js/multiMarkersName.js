@@ -40,7 +40,7 @@ AFRAME.registerComponent('markers_start', {
 
             //Adding video assets to each marker
             var assetEl = document.createElement('a-assets');
-            markerEl.appendChild(assetEl);
+            sceneEl.appendChild(assetEl);
 
             //Adding video assets to each marker
             var videoEl = document.createElement('video');
@@ -62,7 +62,7 @@ AFRAME.registerComponent('markers_start', {
             planeEl.object3D.position.set(0, 0.5, 0);
             planeEl.object3D.rotation.set(-90, 0, 0);
 
-            markerEl.appendChild(planeEl);
+            sceneEl.appendChild(planeEl);
         }
     }
 });
