@@ -34,7 +34,7 @@ AFRAME.registerComponent('markers_start', {
             planeEl.setAttribute('width', 1);
             planeEl.setAttribute('height', 1);
             planeEl.setAttribute('color', '#7BC8A4');
-            planeEl.object3D.position.set(0, 0.1, 0);
+            planeEl.object3D.position.set(0, 0.7, 0);
             planeEl.object3D.rotation.set(-90, 0, 0);
 
             markerEl.appendChild(planeEl);
