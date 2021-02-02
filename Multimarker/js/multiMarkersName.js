@@ -39,30 +39,30 @@ AFRAME.registerComponent('markers_start', {
 
 
             //Adding video assets to each marker
-            var assetEl = document.createElement('a-assets');
-            sceneEl.appendChild(assetEl);
+            // var assetEl = document.createElement('a-assets');
+            // sceneEl.appendChild(assetEl);
 
-            //Adding video assets to each marker
-            var videoEl = document.createElement('video');
+            // //Adding video assets to each marker
+            // var videoEl = document.createElement('video');
 
-            videoEl.src = '/video.mp4';
-            videoEl.setAttribute('id', 'vid_' + k);
-            videoEl.muted = true
-            assetEl.appendChild(videoEl);
+            // videoEl.src = '/video.mp4';
+            // videoEl.setAttribute('id', 'vid_' + k);
+            // videoEl.muted = true
+            // assetEl.appendChild(videoEl);
 
 
-            //Adding plane to each marker
-            var planeEl = document.createElement('a-plane');
+            // //Adding plane to each marker
+            // var planeEl = document.createElement('a-plane');
 
-            planeEl.setAttribute('id', 'plane-' + k);
-            planeEl.setAttribute('width', 1);
-            planeEl.setAttribute('height', 1);
-            planeEl.setAttribute('src', '#vid_' + k);
-            // planeEl.setAttribute('color', '#000000');
-            planeEl.object3D.position.set(0, 0.5, 0);
-            planeEl.object3D.rotation.set(-90, 0, 0);
+            // planeEl.setAttribute('id', 'plane-' + k);
+            // planeEl.setAttribute('width', 1);
+            // planeEl.setAttribute('height', 1);
+            // planeEl.setAttribute('src', '#vid_' + k);
+            // // planeEl.setAttribute('color', '#000000');
+            // planeEl.object3D.position.set(0, 0.5, 0);
+            // planeEl.object3D.rotation.set(-90, 0, 0);
 
-            sceneEl.appendChild(planeEl);
+            // sceneEl.appendChild(planeEl);
         }
     }
 });
