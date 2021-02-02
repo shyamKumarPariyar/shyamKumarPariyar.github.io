@@ -18,7 +18,7 @@ AFRAME.registerComponent('markers_start', {
             //console.log(url);
         }
 
-        for (var k = 0; k < 19; k++) {
+        for (var k = 0; k < 9; k++) {
             var markerEl = document.createElement('a-marker');
             markerEl.setAttribute('type', 'pattern');
             markerEl.setAttribute('url', markersURLArray[k]);
