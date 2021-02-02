@@ -45,7 +45,7 @@ AFRAME.registerComponent('markers_start', {
             //Adding video assets to each marker
             var videoEl = document.createElement('video');
 
-            videoEl.src = '/video1.mp4';
+            videoEl.src = '/video.mp4';
             videoEl.setAttribute('id', 'vid_' + k);
             // videoEl.play()
             assetEl.appendChild(videoEl);
