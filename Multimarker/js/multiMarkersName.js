@@ -47,7 +47,7 @@ AFRAME.registerComponent('markers_start', {
 
             videoEl.src = '/video.mp4';
             videoEl.setAttribute('id', 'vid_' + k);
-            // videoEl.play()
+            videoEl.muted = true
             assetEl.appendChild(videoEl);
 
 
