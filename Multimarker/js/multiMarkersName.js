@@ -28,7 +28,7 @@ AFRAME.registerComponent('markers_start', {
             sceneEl.appendChild(markerEl);
 
             //Adding text to each marker
-            var planeEl = document.createElement('a-plane');
+            var planeEl = document.createElement('a-entity');
 
             planeEl.setAttribute('id', 'plane-'.k);
             planeEl.setAttribute('width', 1);
