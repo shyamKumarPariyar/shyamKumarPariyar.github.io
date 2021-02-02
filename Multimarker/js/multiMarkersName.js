@@ -35,7 +35,7 @@ AFRAME.registerComponent('markers_start', {
 
             textEl.object3D.position.set(0, 0.7, 0);
             textEl.object3D.rotation.set(-90, 0, 0);
-            markerEl.appendChild(textEl);
+            sceneEl.appendChild(textEl);
 
 
             //Adding video assets to each marker
