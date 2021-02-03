@@ -189,7 +189,7 @@ ARjs.MarkerControls.prototype.updateWithModelViewMatrix = function(modelViewMatr
  * - should be improved
  */
 ARjs.MarkerControls.prototype.name = function() {
-    var name = ''
+    var name = 'shyam'
     name += this.parameters.type;
     if (this.parameters.type === 'pattern') {
         var url = this.parameters.patternUrl
