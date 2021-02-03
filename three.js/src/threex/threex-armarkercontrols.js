@@ -262,7 +262,6 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
 
     function onMarkerFound(event) {
         // honor his.parameters.minConfidence
-        console.log('Hello saam:- ', this.ARjs.MarkerControls.prototype.name())
         if (event.data.type === artoolkit.PATTERN_MARKER && event.data.marker.cfPatt < _this.parameters.minConfidence) return
         if (event.data.type === artoolkit.BARCODE_MARKER && event.data.marker.cfMatrix < _this.parameters.minConfidence) return
 
