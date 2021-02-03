@@ -189,7 +189,7 @@ ARjs.MarkerControls.prototype.updateWithModelViewMatrix = function(modelViewMatr
  * - should be improved
  */
 ARjs.MarkerControls.prototype.name = function() {
-    var name = 'shyam'
+    var name = 'saam'
     name += this.parameters.type;
     if (this.parameters.type === 'pattern') {
         var url = this.parameters.patternUrl
@@ -200,6 +200,7 @@ ARjs.MarkerControls.prototype.name = function() {
     } else {
         console.assert(false, 'no .name() implemented for this marker controls')
     }
+    console.log('Just to see:- ', name);
     return name
 }
 
