@@ -238,6 +238,14 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
                     artoolkitMarkerId = markerId
                     arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
                 });
+                arController.addEventListener('getMarker', function(event) {
+                    if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
+                        if (artoolkitMarkerId === null) return
+                        if (event.data.marker.idPatt === artoolkitMarkerId) onMarkerFound(event)
+                    }
+                })
+
+
 
 
             });
@@ -246,6 +254,8 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
             //     artoolkitMarkerId = markerId
             //     arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
             // });
+
+
 
 
         } else if (_this.parameters.type === 'barcode') {
@@ -258,18 +268,18 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
         }
 
         // listen to the event
-        arController.addEventListener('getMarker', function(event) {
-            if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
-                if (artoolkitMarkerId === null) return
-                if (event.data.marker.idPatt === artoolkitMarkerId) onMarkerFound(event)
-            } else if (event.data.type === artoolkit.BARCODE_MARKER && _this.parameters.type === 'barcode') {
-                // console.log('BARCODE_MARKER idMatrix', event.data.marker.idMatrix, artoolkitMarkerId )
-                if (artoolkitMarkerId === null) return
-                if (event.data.marker.idMatrix === artoolkitMarkerId) onMarkerFound(event)
-            } else if (event.data.type === artoolkit.UNKNOWN_MARKER && _this.parameters.type === 'unknown') {
-                onMarkerFound(event)
-            }
-        })
+        // arController.addEventListener('getMarker', function(event) {
+        //     if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
+        //         if (artoolkitMarkerId === null) return
+        //         if (event.data.marker.idPatt === artoolkitMarkerId) onMarkerFound(event)
+        //     } else if (event.data.type === artoolkit.BARCODE_MARKER && _this.parameters.type === 'barcode') {
+        //         // console.log('BARCODE_MARKER idMatrix', event.data.marker.idMatrix, artoolkitMarkerId )
+        //         if (artoolkitMarkerId === null) return
+        //         if (event.data.marker.idMatrix === artoolkitMarkerId) onMarkerFound(event)
+        //     } else if (event.data.type === artoolkit.UNKNOWN_MARKER && _this.parameters.type === 'unknown') {
+        //         onMarkerFound(event)
+        //     }
+        // })
 
     }
 
