@@ -241,7 +241,10 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
                 arController.addEventListener('getMarker', function(event) {
                     if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
                         if (artoolkitMarkerIds === null) return
-                        if (event.data.marker.idPatt === artoolkitMarkerIds) onMarkerFound(event)
+                        if (event.data.marker.idPatt === artoolkitMarkerIds) {
+                            onMarkerFound(event)
+                            return
+                        }
                     }
                 })
 
