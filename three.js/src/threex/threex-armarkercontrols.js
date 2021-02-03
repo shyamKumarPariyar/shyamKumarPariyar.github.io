@@ -192,7 +192,7 @@ ARjs.MarkerControls.prototype.name = function() {
     var name = ''
     name += this.parameters.type;
     if (this.parameters.type === 'pattern') {
-        var url = this.parameters.patternUrl[1]
+        var url = this.parameters.patternUrl
         var basename = url.replace(/^.*\//g, '')
         name += ' - ' + basename
     } else if (this.parameters.type === 'barcode') {
@@ -231,36 +231,10 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
 
         // start tracking this pattern
         if (_this.parameters.type === 'pattern') {
-            var artoolkitMarkerIds = null
-            _this.parameters.patternUrl.forEach(function(newUrl) {
-                arController.loadMarker(newUrl, function(markerId) {
-                    console.log('Called here:- ', newUrl)
-                    artoolkitMarkerIds = markerId
-                    arController.trackPatternMarkerId(artoolkitMarkerIds, _this.parameters.size);
-                });
-                arController.addEventListener('getMarker', function(event) {
-                    if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
-                        if (artoolkitMarkerIds === null) return
-                        if (event.data.marker.idPatt === artoolkitMarkerIds) {
-                            onMarkerFound(event)
-                            return
-                        }
-                    }
-                })
-
-
-
-
+            arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
+                artoolkitMarkerId = markerId
+                arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
             });
-            // arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
-            //     console.log('Called here:- ', _this.parameters.patternUrl)
-            //     artoolkitMarkerId = markerId
-            //     arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
-            // });
-
-
-
-
         } else if (_this.parameters.type === 'barcode') {
             artoolkitMarkerId = _this.parameters.barcodeValue
             arController.trackBarcodeMarkerId(artoolkitMarkerId, _this.parameters.size);
@@ -271,18 +245,18 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
         }
 
         // listen to the event
-        // arController.addEventListener('getMarker', function(event) {
-        //     if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
-        //         if (artoolkitMarkerId === null) return
-        //         if (event.data.marker.idPatt === artoolkitMarkerId) onMarkerFound(event)
-        //     } else if (event.data.type === artoolkit.BARCODE_MARKER && _this.parameters.type === 'barcode') {
-        //         // console.log('BARCODE_MARKER idMatrix', event.data.marker.idMatrix, artoolkitMarkerId )
-        //         if (artoolkitMarkerId === null) return
-        //         if (event.data.marker.idMatrix === artoolkitMarkerId) onMarkerFound(event)
-        //     } else if (event.data.type === artoolkit.UNKNOWN_MARKER && _this.parameters.type === 'unknown') {
-        //         onMarkerFound(event)
-        //     }
-        // })
+        arController.addEventListener('getMarker', function(event) {
+            if (event.data.type === artoolkit.PATTERN_MARKER && _this.parameters.type === 'pattern') {
+                if (artoolkitMarkerId === null) return
+                if (event.data.marker.idPatt === artoolkitMarkerId) onMarkerFound(event)
+            } else if (event.data.type === artoolkit.BARCODE_MARKER && _this.parameters.type === 'barcode') {
+                // console.log('BARCODE_MARKER idMatrix', event.data.marker.idMatrix, artoolkitMarkerId )
+                if (artoolkitMarkerId === null) return
+                if (event.data.marker.idMatrix === artoolkitMarkerId) onMarkerFound(event)
+            } else if (event.data.type === artoolkit.UNKNOWN_MARKER && _this.parameters.type === 'unknown') {
+                onMarkerFound(event)
+            }
+        })
 
     }
 
