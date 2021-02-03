@@ -231,11 +231,23 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
 
         // start tracking this pattern
         if (_this.parameters.type === 'pattern') {
-            arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
-                console.log('Called here:- ', _this.parameters.patternUrl)
-                artoolkitMarkerId = markerId
-                arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
+
+            _this.parameters.patternUrl.forEach(function(newUrl) {
+                arController.loadMarker(newUrl, function(markerId) {
+                    console.log('Called here:- ', newUrl)
+                    artoolkitMarkerId = markerId
+                    arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
+                });
+
+
             });
+            // arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
+            //     console.log('Called here:- ', _this.parameters.patternUrl)
+            //     artoolkitMarkerId = markerId
+            //     arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
+            // });
+
+
         } else if (_this.parameters.type === 'barcode') {
             artoolkitMarkerId = _this.parameters.barcodeValue
             arController.trackBarcodeMarkerId(artoolkitMarkerId, _this.parameters.size);
