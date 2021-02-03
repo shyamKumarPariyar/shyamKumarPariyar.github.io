@@ -232,6 +232,7 @@ ARjs.MarkerControls.prototype._initArtoolkit = function() {
         // start tracking this pattern
         if (_this.parameters.type === 'pattern') {
             arController.loadMarker(_this.parameters.patternUrl, function(markerId) {
+                console.log('Called here:- ', _this.parameters.patternUrl)
                 artoolkitMarkerId = markerId
                 arController.trackPatternMarkerId(artoolkitMarkerId, _this.parameters.size);
             });
