@@ -155,7 +155,7 @@
             smoothTolerance: 0.0001,
             smoothThreshold: 2,
         })
-        console.log('Debugging by shyam:- ', markerControls)
+
 
         // build a smoothedControls
         var smoothedRoot = new THREE.Group()
@@ -212,6 +212,7 @@
         arWorldRoot.add(mesh)
 
         smoothedControls.addEventListener('becameVisible', function() {
+            console.log('Debugging on visible shyam:- ', markerControls)
             console.log('becameVisible event notified')
             onResize()
             video.play()
