@@ -192,7 +192,7 @@ ARjs.MarkerControls.prototype.name = function() {
     var name = ''
     name += this.parameters.type;
     if (this.parameters.type === 'pattern') {
-        var url = this.parameters.patternUrl.url1
+        var url = this.parameters.patternUrl[1]
         var basename = url.replace(/^.*\//g, '')
         name += ' - ' + basename
     } else if (this.parameters.type === 'barcode') {
